@@ -1,0 +1,34 @@
+// ============================================================
+//  SETWORD.txt — Kata-kata Terminal Signature (Admin Panel)
+//  Edit baris di bawah buat ganti isi terminal di halaman utama.
+//  Baris yang diawali // dianggap komentar (diabaikan).
+//
+//  Format ada 2 jenis, pisahkan dengan tanda |
+//
+//  1) BOOT|teks
+//     Baris log yang muncul pas "loading" admin panel di awal.
+//     Contoh: BOOT|Checking license... OK
+//
+//  2) CMD|perintah|hasil
+//     Command yang diketik otomatis lalu muncul hasilnya.
+//     Muter terus bergantian selama-lamanya.
+//     Contoh: CMD|whoami|guest@cdaaptnia
+//
+//  Placeholder yang bisa dipakai di teks/hasil:
+//   {produk}  -> otomatis diganti jumlah produk di data.js
+//   {admin}   -> otomatis diganti jumlah admin kontak
+// ============================================================
+
+BOOT|Booting Cdaaptnia Admin Panel...
+BOOT|Memuat modul toko... OK
+BOOT|Verifikasi lisensi... OK
+BOOT|Menghubungkan ke database produk... OK
+BOOT|Sinkronisasi katalog... {produk} item ditemukan
+BOOT|Sistem siap.
+
+CMD|whoami|guest@cdaaptnia
+CMD|status|→ ONLINE — semua sistem normal
+CMD|cd katalog|→ {produk} produk siap dilihat
+CMD|cd panduan|→ video & langkah pemasangan
+CMD|cd kontak|→ {admin} admin siap dihubungi
+CMD|help|→ ketik nama menu buat pindah halaman

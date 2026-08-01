@@ -30,7 +30,8 @@
   <div class="menu-terminal fade-up" style="animation-delay:.18s">
     <div class="terminal-bar">
       <span></span><span></span><span></span>
-      <span class="path">~/cdaaptnia</span>
+      <span class="path">~/cdaaptnia/admin</span>
+      <span class="status-badge"><span class="status-dot"></span>ONLINE</span>
     </div>
     <div class="terminal-body" id="termBody">
       <div class="line"><span class="prompt">$</span> <span class="typed" id="typedLine"></span></div>
@@ -87,47 +88,114 @@
   document.getElementById('statAdmin').textContent =
     2 + SITE_DATA.kontak.telegram.length; // WA + Discord + semua admin TG
 
-  // Terminal typing signature
-  const lines = [
-    { cmd: "cd katalog", out: "→ " + SITE_DATA.produk.length + " produk siap dilihat" },
-    { cmd: "cd panduan", out: "→ video & langkah pemasangan" },
-    { cmd: "cd kontak", out: "→ WA / Discord / Telegram" }
-  ];
+  // Terminal signature — teks diambil dari setword.txt biar gampang diedit
   const typedEl = document.getElementById('typedLine');
   const bodyEl = document.getElementById('termBody');
-  let li = 0;
+  const promptLine = typedEl.closest('.line');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function typeLine(){
-    const entry = lines[li % lines.length];
-    let i = 0;
-    typedEl.textContent = "";
-    typedEl.style.borderRight = "2px solid var(--gold)";
-    const iv = setInterval(() => {
-      typedEl.textContent = entry.cmd.slice(0, i+1);
-      i++;
-      if(i >= entry.cmd.length){
-        clearInterval(iv);
-        setTimeout(() => {
-          const outLine = document.createElement('div');
-          outLine.className = 'line out';
-          outLine.style.color = 'var(--muted)';
-          outLine.textContent = entry.out;
-          bodyEl.appendChild(outLine);
-          setTimeout(() => {
-            outLine.remove();
-            li++;
-            typeLine();
-          }, 1700);
-        }, 250);
+  function fillPlaceholder(str){
+    return str
+      .replace(/\{produk\}/g, SITE_DATA.produk.length)
+      .replace(/\{admin\}/g, 2 + SITE_DATA.kontak.telegram.length);
+  }
+
+  function parseSetword(raw){
+    const boot = [];
+    const cmds = [];
+    raw.split(/\r?\n/).forEach(rawLine => {
+      const line = rawLine.trim();
+      if(!line || line.startsWith('//')) return;
+      const parts = line.split('|');
+      if(parts[0] === 'BOOT' && parts[1] !== undefined){
+        boot.push(fillPlaceholder(parts[1]));
+      } else if(parts[0] === 'CMD' && parts[1] !== undefined && parts[2] !== undefined){
+        cmds.push({ cmd: parts[1], out: fillPlaceholder(parts[2]) });
       }
-    }, 42);
+    });
+    return { boot, cmds };
   }
 
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    typeLine();
-  } else {
-    typedEl.textContent = lines[0].cmd;
+  // Fallback dipakai kalau setword.txt gagal dimuat (misal dibuka langsung dari file lokal)
+  const fallback = {
+    boot: ["Memuat modul toko... OK", "Sistem siap."],
+    cmds: [
+      { cmd: "cd katalog", out: "→ " + SITE_DATA.produk.length + " produk siap dilihat" },
+      { cmd: "cd panduan", out: "→ video & langkah pemasangan" },
+      { cmd: "cd kontak", out: "→ WA / Discord / Telegram" }
+    ]
+  };
+
+  function runBoot(boot, cmds){
+    if(reduceMotion || boot.length === 0){
+      startLoop(cmds);
+      return;
+    }
+    let bi = 0;
+    function nextBootLine(){
+      if(bi >= boot.length){
+        setTimeout(() => {
+          document.querySelectorAll('.menu-terminal .line.boot').forEach(el => el.remove());
+          const div = document.createElement('div');
+          div.className = 'divider';
+          bodyEl.insertBefore(div, promptLine);
+          startLoop(cmds);
+        }, 500);
+        return;
+      }
+      const el = document.createElement('div');
+      el.className = 'line boot';
+      const text = boot[bi];
+      el.innerHTML = text.replace(/(OK|siap\.?)$/, '<span class="ok">$1</span>');
+      bodyEl.insertBefore(el, promptLine);
+      bi++;
+      setTimeout(nextBootLine, 260);
+    }
+    nextBootLine();
   }
+
+  function startLoop(cmds){
+    if(cmds.length === 0) return;
+    let li = 0;
+    function typeLine(){
+      const entry = cmds[li % cmds.length];
+      let i = 0;
+      typedEl.textContent = "";
+      typedEl.style.borderRight = "2px solid var(--gold)";
+      const iv = setInterval(() => {
+        typedEl.textContent = entry.cmd.slice(0, i+1);
+        i++;
+        if(i >= entry.cmd.length){
+          clearInterval(iv);
+          setTimeout(() => {
+            const outLine = document.createElement('div');
+            outLine.className = 'line out';
+            outLine.style.color = 'var(--muted)';
+            outLine.textContent = entry.out;
+            bodyEl.appendChild(outLine);
+            setTimeout(() => {
+              outLine.remove();
+              li++;
+              typeLine();
+            }, 1700);
+          }, 250);
+        }
+      }, 42);
+    }
+    if(reduceMotion){
+      typedEl.textContent = cmds[0].cmd;
+    } else {
+      typeLine();
+    }
+  }
+
+  fetch('setword.txt')
+    .then(res => { if(!res.ok) throw new Error('no setword.txt'); return res.text(); })
+    .then(raw => {
+      const parsed = parseSetword(raw);
+      runBoot(parsed.boot.length ? parsed.boot : fallback.boot, parsed.cmds.length ? parsed.cmds : fallback.cmds);
+    })
+    .catch(() => runBoot(fallback.boot, fallback.cmds));
 </script>
 
 </body>
