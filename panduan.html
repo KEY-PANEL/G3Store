@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan // Cdaaptnia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="dot"></span> <a href="index.html">Cdaaptnia</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="links">
+    <a href="katalog.html">Katalog</a>
+    <a href="panduan.html" class="active">Panduan</a>
+    <a href="kontak.html">Cara Beli</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="section-head">
+    <span class="tag">// panduan</span>
+    <h2>Cara pemasangan &amp; penggunaan</h2>
+    <p>Tonton video pemasangan, atau ikutin langkah teks di bawah. Detail bisa beda tiap produk — ikutin instruksi yang dikirim admin ya.</p>
+  </div>
+
+  <div class="guide">
+    <div class="guide-col" id="colScript"></div>
+    <div class="guide-col" id="colApp"></div>
+  </div>
+
+  <div class="help-box">
+    <div>
+      <h3>Masih bingung?</h3>
+      <p>Chat admin langsung, kirim screenshot kalau perlu.</p>
+    </div>
+    <div class="help-actions" id="helpActions"></div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Cdaaptnia</span>
+  <a href="kontak.html" class="mono">cara beli →</a>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  function renderCol(id, data){
+    const el = document.getElementById(id);
+    el.innerHTML = `
+      <span class="kind">${data.kategori}</span>
+      <h3>${data.judul}</h3>
+      <a class="video-btn" href="${SITE_DATA.panduan.video_url}" target="_blank" rel="noopener">
+        ▶ Tonton video pemasangan
+      </a>
+      <ul class="steps">
+        ${data.langkah.map(l => `<li><span>${l}</span></li>`).join('')}
+      </ul>
+      <div class="guide-note">${data.catatan}</div>
+    `;
+  }
+
+  renderCol('colScript', SITE_DATA.panduan.script);
+  renderCol('colApp', SITE_DATA.panduan.app);
+
+  // tombol bantuan -> WA + semua admin Telegram
+  const helpActions = document.getElementById('helpActions');
+  let helpHtml = `<a class="btn btn-primary" href="${SITE_DATA.kontak.whatsapp.link}" target="_blank" rel="noopener">Chat WhatsApp</a>`;
+  SITE_DATA.kontak.telegram.forEach(t => {
+    helpHtml += `<a class="btn btn-ghost" href="${t.link}" target="_blank" rel="noopener">Telegram — ${t.nama}</a>`;
+  });
+  helpActions.innerHTML = helpHtml;
+</script>
+
+</body>
+</html>

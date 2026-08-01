@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katalog // Cdaaptnia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="dot"></span> <a href="index.html">Cdaaptnia</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="links">
+    <a href="katalog.html" class="active">Katalog</a>
+    <a href="panduan.html">Panduan</a>
+    <a href="kontak.html">Cara Beli</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="section-head">
+    <span class="tag">// katalog</span>
+    <h2>Produk yang tersedia</h2>
+    <p>Pilih produk yang cocok, lalu buka halaman "Cara Beli" untuk hubungi admin.</p>
+  </div>
+
+  <div class="catalog" id="catalogGrid"></div>
+</section>
+
+<footer>
+  <span>© 2026 Cdaaptnia</span>
+  <a href="kontak.html" class="mono">cara beli →</a>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const tierLabel = { common:"Common", rare:"Rare", epic:"Epic", legend:"Legendary" };
+  const grid = document.getElementById('catalogGrid');
+
+  SITE_DATA.produk.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <span class="tier ${p.tier}">${tierLabel[p.tier] || p.tier}</span>
+      <span class="kind mono">${p.kategori}</span>
+      <h3>${p.nama}</h3>
+      <p>${p.deskripsi}</p>
+      <ul class="features">${p.fitur.map(f => `<li>${f}</li>`).join('')}</ul>
+      <div class="price">${p.harga}</div>
+      <a href="kontak.html" class="buy">Chat untuk beli</a>
+    `;
+    grid.appendChild(card);
+  });
+</script>
+
+</body>
+</html>

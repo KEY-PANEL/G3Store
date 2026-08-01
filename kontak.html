@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cara Beli // Cdaaptnia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="dot"></span> <a href="index.html">Cdaaptnia</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="links">
+    <a href="katalog.html">Katalog</a>
+    <a href="panduan.html">Panduan</a>
+    <a href="kontak.html" class="active">Cara Beli</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="section-head">
+    <span class="tag">// cara beli</span>
+    <h2>Mau beli? Tinggal chat aja</h2>
+    <p>Nggak ada checkout otomatis — semua transaksi diproses manual lewat salah satu channel di bawah. Sebutin nama produk yang kamu mau pas chat, ya.</p>
+  </div>
+
+  <div id="channelList" class="channels"></div>
+</section>
+
+<footer>
+  <span>© 2026 Cdaaptnia</span>
+  <span class="mono">status: open for orders</span>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const list = document.getElementById('channelList');
+  let html = '';
+
+  html += `
+    <a class="channel wa" href="${SITE_DATA.kontak.whatsapp.link}" target="_blank" rel="noopener">
+      <div class="left"><span class="chip"></span> ${SITE_DATA.kontak.whatsapp.nama}</div>
+      <span class="go mono">buka →</span>
+    </a>`;
+
+  html += `
+    <a class="channel dc" href="${SITE_DATA.kontak.discord.link}" target="_blank" rel="noopener">
+      <div class="left"><span class="chip"></span> ${SITE_DATA.kontak.discord.nama}</div>
+      <span class="go mono">buka →</span>
+    </a>`;
+
+  if (SITE_DATA.kontak.telegram.length > 0) {
+    html += `<div class="group-label">Telegram (${SITE_DATA.kontak.telegram.length} admin)</div>`;
+    SITE_DATA.kontak.telegram.forEach(t => {
+      html += `
+        <a class="channel tg" href="${t.link}" target="_blank" rel="noopener">
+          <div class="left"><span class="chip"></span> Telegram <span class="sub">— ${t.nama}</span></div>
+          <span class="go mono">buka →</span>
+        </a>`;
+    });
+  }
+
+  list.innerHTML = html;
+</script>
+
+</body>
+</html>

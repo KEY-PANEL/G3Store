@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cdaaptnia // Script & App Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="dot"></span> <span id="brandName">Cdaaptnia</span><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="links">
+    <a href="katalog.html">Katalog</a>
+    <a href="panduan.html">Panduan</a>
+    <a href="kontak.html">Cara Beli</a>
+  </div>
+</nav>
+
+<div class="menu-hero">
+  <span class="eyebrow">Buka slot pembelian</span>
+  <h1 id="headline"></h1>
+  <p id="deskripsi"></p>
+</div>
+
+<div class="menu-tiles">
+  <a class="tile" href="katalog.html">
+    <div class="icon">🗂️</div>
+    <h3>Katalog</h3>
+    <p>Lihat semua produk — script, app, dan tools lainnya lengkap dengan fitur & harga.</p>
+    <div class="go">Buka katalog →</div>
+  </a>
+  <a class="tile" href="panduan.html">
+    <div class="icon">🛠️</div>
+    <h3>Cara Pasang & Pakai</h3>
+    <p>Video pemasangan dan langkah-langkah penggunaan untuk script maupun app.</p>
+    <div class="go">Lihat panduan →</div>
+  </a>
+  <a class="tile" href="kontak.html">
+    <div class="icon">💬</div>
+    <h3>Cara Beli</h3>
+    <p>Hubungi admin lewat WhatsApp, Discord, atau Telegram buat proses pembelian.</p>
+    <div class="go">Hubungi admin →</div>
+  </a>
+</div>
+
+<footer>
+  <span>© 2026 <span id="brandFooter">Cdaaptnia</span></span>
+  <span class="mono">status: open for orders</span>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  document.getElementById('headline').innerHTML =
+    SITE_DATA.hero.headline.replace(SITE_DATA.brand, `<span style="color:var(--gold)">${SITE_DATA.brand}</span>`);
+  document.getElementById('deskripsi').textContent = SITE_DATA.hero.deskripsi;
+  document.getElementById('brandName').textContent = SITE_DATA.brand;
+  document.getElementById('brandFooter').textContent = SITE_DATA.brand;
+</script>
+
+</body>
+</html>
