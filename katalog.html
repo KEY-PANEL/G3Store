@@ -36,14 +36,12 @@
 
 <script src="data.js"></script>
 <script>
-  const tierLabel = { common:"Common", rare:"Rare", epic:"Epic", legend:"Legendary" };
   const grid = document.getElementById('catalogGrid');
 
   SITE_DATA.produk.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      <span class="tier ${p.tier}">${tierLabel[p.tier] || p.tier}</span>
       <span class="kind mono">${p.kategori}</span>
       <h3>${p.nama}</h3>
       <p>${p.deskripsi}</p>

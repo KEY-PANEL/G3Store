@@ -15,13 +15,11 @@ const SITE_DATA = {
 
   // ------------------------------------------------------
   // PRODUK - tambah/hapus objek di array ini sesuka hati
-  // tier: "common" | "rare" | "epic" | "legend"
   // kategori: bebas, contoh "Roblox Script" / "Android App" / "Tools"
   // ------------------------------------------------------
   produk: [
     {
       nama: "Nama Script #1",
-      tier: "legend",
       kategori: "Roblox Script",
       deskripsi: "Deskripsi singkat fitur utama script.",
       fitur: ["Fitur otomasi utama 1", "Fitur otomasi utama 2", "UI kustom / mudah diatur", "Update berkala"],
@@ -29,7 +27,6 @@ const SITE_DATA = {
     },
     {
       nama: "Nama App #2",
-      tier: "epic",
       kategori: "Android App",
       deskripsi: "Aplikasi Android dengan fitur produktivitas / utilitas.",
       fitur: ["Fitur utama app 1", "Fitur utama app 2", "Tema Light/Dark", "Ringan & hemat memori"],
@@ -37,7 +34,6 @@ const SITE_DATA = {
     },
     {
       nama: "Nama Script #3",
-      tier: "rare",
       kategori: "Roblox Script",
       deskripsi: "Cocok untuk pemain yang butuh efisiensi.",
       fitur: ["Auto farming/otomasi", "Anti-AFK", "Kompatibel executor tertentu"],
@@ -45,7 +41,6 @@ const SITE_DATA = {
     },
     {
       nama: "Nama Produk #4",
-      tier: "common",
       kategori: "Tools / Lainnya",
       deskripsi: "Slot buat produk lain — web tool, template, atau custom order.",
       fitur: ["Fitur / cakupan 1", "Fitur / cakupan 2"],

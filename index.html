@@ -10,6 +10,16 @@
 </head>
 <body>
 
+<div id="bootScreen" class="boot-screen">
+  <div class="boot-box">
+    <div class="boot-box-bar">
+      <span></span><span></span><span></span>
+      <span class="path">~/cdaaptnia/boot</span>
+    </div>
+    <div class="boot-log" id="bootLog"></div>
+  </div>
+</div>
+
 <div class="bg-grid"></div>
 <div class="bg-glow"></div>
 
@@ -30,8 +40,7 @@
   <div class="menu-terminal fade-up" style="animation-delay:.18s">
     <div class="terminal-bar">
       <span></span><span></span><span></span>
-      <span class="path">~/cdaaptnia/admin</span>
-      <span class="status-badge"><span class="status-dot"></span>ONLINE</span>
+      <span class="path">~/cdaaptnia</span>
     </div>
     <div class="terminal-body" id="termBody">
       <div class="line"><span class="prompt">$</span> <span class="typed" id="typedLine"></span></div>
@@ -88,10 +97,11 @@
   document.getElementById('statAdmin').textContent =
     2 + SITE_DATA.kontak.telegram.length; // WA + Discord + semua admin TG
 
-  // Terminal signature — teks diambil dari setword.txt biar gampang diedit
+  // Loading screen + terminal signature — teks diambil dari setword.txt
+  const bootScreen = document.getElementById('bootScreen');
+  const bootLog = document.getElementById('bootLog');
   const typedEl = document.getElementById('typedLine');
   const bodyEl = document.getElementById('termBody');
-  const promptLine = typedEl.closest('.line');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function fillPlaceholder(str){
@@ -116,46 +126,51 @@
     return { boot, cmds };
   }
 
-  // Fallback dipakai kalau setword.txt gagal dimuat (misal dibuka langsung dari file lokal)
-  const fallback = {
-    boot: ["Memuat modul toko... OK", "Sistem siap."],
-    cmds: [
-      { cmd: "cd katalog", out: "→ " + SITE_DATA.produk.length + " produk siap dilihat" },
-      { cmd: "cd panduan", out: "→ video & langkah pemasangan" },
-      { cmd: "cd kontak", out: "→ WA / Discord / Telegram" }
-    ]
-  };
+  const fallbackBoot = ["Memuat modul toko... OK", "Sistem siap."];
+  const fallbackCmds = [
+    { cmd: "cd katalog", out: "→ " + SITE_DATA.produk.length + " produk siap dilihat" },
+    { cmd: "cd panduan", out: "→ video & langkah pemasangan" },
+    { cmd: "cd kontak", out: "→ WA / Discord / Telegram" }
+  ];
 
-  function runBoot(boot, cmds){
-    if(reduceMotion || boot.length === 0){
-      startLoop(cmds);
+  function hideBootScreen(){
+    document.body.style.overflow = '';
+    bootScreen.classList.add('hide');
+    setTimeout(() => bootScreen.remove(), 550);
+  }
+
+  function runBootScreen(boot){
+    if(!boot || boot.length === 0) boot = fallbackBoot;
+    if(reduceMotion){
+      hideBootScreen();
       return;
     }
+    document.body.style.overflow = 'hidden';
     let bi = 0;
-    function nextBootLine(){
+    function nextLine(){
       if(bi >= boot.length){
-        setTimeout(() => {
-          document.querySelectorAll('.menu-terminal .line.boot').forEach(el => el.remove());
-          const div = document.createElement('div');
-          div.className = 'divider';
-          bodyEl.insertBefore(div, promptLine);
-          startLoop(cmds);
-        }, 500);
+        setTimeout(hideBootScreen, 450);
         return;
       }
       const el = document.createElement('div');
-      el.className = 'line boot';
+      el.className = 'line';
       const text = boot[bi];
-      el.innerHTML = text.replace(/(OK|siap\.?)$/, '<span class="ok">$1</span>');
-      bodyEl.insertBefore(el, promptLine);
+      el.innerHTML = text.replace(/(OK|ditemukan|siap\.?)$/, '<span class="ok">$1</span>');
+      if(bi === boot.length - 1){
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        el.appendChild(document.createTextNode(' '));
+        el.appendChild(cursor);
+      }
+      bootLog.appendChild(el);
       bi++;
-      setTimeout(nextBootLine, 260);
+      setTimeout(nextLine, 320);
     }
-    nextBootLine();
+    nextLine();
   }
 
   function startLoop(cmds){
-    if(cmds.length === 0) return;
+    if(!cmds || cmds.length === 0) cmds = fallbackCmds;
     let li = 0;
     function typeLine(){
       const entry = cmds[li % cmds.length];
@@ -193,9 +208,13 @@
     .then(res => { if(!res.ok) throw new Error('no setword.txt'); return res.text(); })
     .then(raw => {
       const parsed = parseSetword(raw);
-      runBoot(parsed.boot.length ? parsed.boot : fallback.boot, parsed.cmds.length ? parsed.cmds : fallback.cmds);
+      runBootScreen(parsed.boot);
+      startLoop(parsed.cmds);
     })
-    .catch(() => runBoot(fallback.boot, fallback.cmds));
+    .catch(() => {
+      runBootScreen(fallbackBoot);
+      startLoop(fallbackCmds);
+    });
 </script>
 
 </body>
