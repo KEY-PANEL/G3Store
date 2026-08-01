@@ -137,26 +137,6 @@ nav, .menu-hero, .menu-tiles, footer, .section{ position:relative; z-index:1; }
 @keyframes bootLineIn{ from{ opacity:0; transform:translateX(-4px); } to{ opacity:1; transform:translateX(0); } }
 @keyframes statusPulse{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
 
-/* ---------- MENU TERMINAL SIGNATURE ---------- */
-.menu-terminal{
-  max-width:480px; margin:34px auto 0; text-align:left;
-  background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden;
-  box-shadow:0 30px 60px -25px rgba(0,0,0,0.55);
-}
-.menu-terminal .terminal-bar{
-  display:flex; align-items:center; gap:8px; padding:11px 16px;
-  border-bottom:1px solid var(--line); background:var(--panel-2);
-}
-.menu-terminal .terminal-bar span{ width:9px; height:9px; border-radius:50%; }
-.menu-terminal .terminal-bar span:nth-child(1){ background:#FF5F57; }
-.menu-terminal .terminal-bar span:nth-child(2){ background:#FEBC2E; }
-.menu-terminal .terminal-bar span:nth-child(3){ background:#28C840; }
-.menu-terminal .terminal-bar .path{ margin-left:10px; font-family:'JetBrains Mono',monospace; font-size:0.76rem; color:var(--muted); }
-.menu-terminal .terminal-body{ padding:18px 18px 20px; font-family:'JetBrains Mono',monospace; font-size:0.86rem; }
-.menu-terminal .line{ color:var(--muted); margin-bottom:8px; }
-.menu-terminal .prompt{ color:var(--teal); }
-.menu-terminal .typed{ color:var(--text); border-right:2px solid var(--gold); white-space:nowrap; overflow:hidden; display:inline-block; }
-
 .stat-line{
   display:flex; gap:22px; justify-content:center; margin-top:26px; flex-wrap:wrap;
   font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--muted);

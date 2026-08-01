@@ -37,17 +37,7 @@
   <h1 id="headline" class="fade-up" style="animation-delay:.05s"></h1>
   <p id="deskripsi" class="fade-up" style="animation-delay:.1s"></p>
 
-  <div class="menu-terminal fade-up" style="animation-delay:.18s">
-    <div class="terminal-bar">
-      <span></span><span></span><span></span>
-      <span class="path">~/cdaaptnia</span>
-    </div>
-    <div class="terminal-body" id="termBody">
-      <div class="line"><span class="prompt">$</span> <span class="typed" id="typedLine"></span></div>
-    </div>
-  </div>
-
-  <div class="stat-line fade-up" style="animation-delay:.24s">
+  <div class="stat-line fade-up" style="animation-delay:.18s">
     <span><b id="statProduk">0</b> produk tersedia</span>
     <span><b id="statAdmin">0</b> admin siap dihubungi</span>
   </div>
@@ -97,11 +87,9 @@
   document.getElementById('statAdmin').textContent =
     2 + SITE_DATA.kontak.telegram.length; // WA + Discord + semua admin TG
 
-  // Loading screen + terminal signature — teks diambil dari setword.txt
+  // Loading screen — teks BOOT diambil dari setword.txt
   const bootScreen = document.getElementById('bootScreen');
   const bootLog = document.getElementById('bootLog');
-  const typedEl = document.getElementById('typedLine');
-  const bodyEl = document.getElementById('termBody');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function fillPlaceholder(str){
@@ -110,28 +98,20 @@
       .replace(/\{admin\}/g, 2 + SITE_DATA.kontak.telegram.length);
   }
 
-  function parseSetword(raw){
+  function parseBoot(raw){
     const boot = [];
-    const cmds = [];
     raw.split(/\r?\n/).forEach(rawLine => {
       const line = rawLine.trim();
       if(!line || line.startsWith('//')) return;
       const parts = line.split('|');
       if(parts[0] === 'BOOT' && parts[1] !== undefined){
         boot.push(fillPlaceholder(parts[1]));
-      } else if(parts[0] === 'CMD' && parts[1] !== undefined && parts[2] !== undefined){
-        cmds.push({ cmd: parts[1], out: fillPlaceholder(parts[2]) });
       }
     });
-    return { boot, cmds };
+    return boot;
   }
 
   const fallbackBoot = ["Memuat modul toko... OK", "Sistem siap."];
-  const fallbackCmds = [
-    { cmd: "cd katalog", out: "→ " + SITE_DATA.produk.length + " produk siap dilihat" },
-    { cmd: "cd panduan", out: "→ video & langkah pemasangan" },
-    { cmd: "cd kontak", out: "→ WA / Discord / Telegram" }
-  ];
 
   function hideBootScreen(){
     document.body.style.overflow = '';
@@ -149,7 +129,7 @@
     let bi = 0;
     function nextLine(){
       if(bi >= boot.length){
-        setTimeout(hideBootScreen, 450);
+        setTimeout(hideBootScreen, 900);
         return;
       }
       const el = document.createElement('div');
@@ -164,57 +144,15 @@
       }
       bootLog.appendChild(el);
       bi++;
-      setTimeout(nextLine, 320);
+      setTimeout(nextLine, 550);
     }
     nextLine();
   }
 
-  function startLoop(cmds){
-    if(!cmds || cmds.length === 0) cmds = fallbackCmds;
-    let li = 0;
-    function typeLine(){
-      const entry = cmds[li % cmds.length];
-      let i = 0;
-      typedEl.textContent = "";
-      typedEl.style.borderRight = "2px solid var(--gold)";
-      const iv = setInterval(() => {
-        typedEl.textContent = entry.cmd.slice(0, i+1);
-        i++;
-        if(i >= entry.cmd.length){
-          clearInterval(iv);
-          setTimeout(() => {
-            const outLine = document.createElement('div');
-            outLine.className = 'line out';
-            outLine.style.color = 'var(--muted)';
-            outLine.textContent = entry.out;
-            bodyEl.appendChild(outLine);
-            setTimeout(() => {
-              outLine.remove();
-              li++;
-              typeLine();
-            }, 1700);
-          }, 250);
-        }
-      }, 42);
-    }
-    if(reduceMotion){
-      typedEl.textContent = cmds[0].cmd;
-    } else {
-      typeLine();
-    }
-  }
-
   fetch('setword.txt')
     .then(res => { if(!res.ok) throw new Error('no setword.txt'); return res.text(); })
-    .then(raw => {
-      const parsed = parseSetword(raw);
-      runBootScreen(parsed.boot);
-      startLoop(parsed.cmds);
-    })
-    .catch(() => {
-      runBootScreen(fallbackBoot);
-      startLoop(fallbackCmds);
-    });
+    .then(raw => runBootScreen(parseBoot(raw)))
+    .catch(() => runBootScreen(fallbackBoot));
 </script>
 
 </body>

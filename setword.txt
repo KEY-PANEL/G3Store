@@ -1,21 +1,13 @@
 // ============================================================
-//  SETWORD.txt — Kata-kata Terminal & Loading Screen
-//  Edit baris di bawah buat ganti teksnya. Baris yang diawali
-//  // dianggap komentar (diabaikan).
+//  SETWORD.txt — Kata-kata Loading Screen
+//  Edit baris di bawah buat ganti teks yang muncul di loading
+//  screen pas web pertama dibuka. Baris yang diawali // dianggap
+//  komentar (diabaikan).
 //
-//  Ada 2 jenis baris, pisahkan pakai tanda |
+//  Format: BOOT|teks
+//  Contoh: BOOT|Verifikasi lisensi... OK
 //
-//  1) BOOT|teks
-//     Baris log yang muncul di LOADING SCREEN pas web pertama
-//     dibuka (sebelum isi web kelihatan).
-//     Contoh: BOOT|Verifikasi lisensi... OK
-//
-//  2) CMD|perintah|hasil
-//     Command yang diketik otomatis di kotak terminal kecil
-//     di halaman utama, muter terus gantian.
-//     Contoh: CMD|whoami|guest@cdaaptnia
-//
-//  Placeholder yang bisa dipakai di teks/hasil:
+//  Placeholder yang bisa dipakai:
 //   {produk}  -> otomatis diganti jumlah produk di data.js
 //   {admin}   -> otomatis diganti jumlah admin kontak
 // ============================================================
@@ -26,7 +18,3 @@ BOOT|Verifikasi lisensi... OK
 BOOT|Menghubungkan ke database produk... OK
 BOOT|Sinkronisasi katalog... {produk} item ditemukan
 BOOT|Sistem siap.
-
-CMD|cd katalog|→ {produk} produk siap dilihat
-CMD|cd panduan|→ video & langkah pemasangan
-CMD|cd kontak|→ {admin} admin siap dihubungi
