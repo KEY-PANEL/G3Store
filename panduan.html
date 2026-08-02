@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panduan // Cdaaptnia</title>
+<meta name="description" content="Video pemasangan dan langkah-langkah penggunaan untuk script maupun app dari Cdaaptnia.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Panduan // Cdaaptnia">
+<meta property="og:description" content="Video pemasangan dan langkah-langkah penggunaan untuk script maupun app dari Cdaaptnia.">
+<meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
+<meta property="og:url" content="{URL_WEBSITE}/panduan.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -23,13 +30,10 @@
   <div class="section-head">
     <span class="tag">// panduan</span>
     <h2>Cara pemasangan &amp; penggunaan</h2>
-    <p>Tonton video pemasangan, atau ikutin langkah teks di bawah. Detail bisa beda tiap produk — ikutin instruksi yang dikirim admin ya.</p>
+    <p>Tiap produk punya cara pakainya sendiri-sendiri. Pilih produknya di bawah buat lihat langkah lengkap & video (kalau ada).</p>
   </div>
 
-  <div class="guide">
-    <div class="guide-col" id="colScript"></div>
-    <div class="guide-col" id="colApp"></div>
-  </div>
+  <div class="catalog" id="panduanGrid"></div>
 
   <div class="help-box">
     <div>
@@ -47,31 +51,23 @@
 
 <script src="data.js"></script>
 <script>
-  function renderCol(id, data){
-    const el = document.getElementById(id);
-    el.innerHTML = `
-      <span class="kind">${data.kategori}</span>
-      <h3>${data.judul}</h3>
-      <a class="video-btn" href="${SITE_DATA.panduan.video_url}" target="_blank" rel="noopener">
-        ▶ Tonton video pemasangan
-      </a>
-      <ul class="steps">
-        ${data.langkah.map(l => `<li><span>${l}</span></li>`).join('')}
-      </ul>
-      <div class="guide-note">${data.catatan}</div>
-    `;
-  }
+  const grid = document.getElementById('panduanGrid');
+  grid.innerHTML = SITE_DATA.produk.map(p => `
+    <div class="card">
+      <span class="kind mono">${p.kategori}</span>
+      <h3>${p.nama}</h3>
+      <p>${p.deskripsi}</p>
+      <a href="produk.html?id=${encodeURIComponent(p.id)}#cara-pakai" class="buy">Lihat cara pakai</a>
+    </div>
+  `).join('');
 
-  renderCol('colScript', SITE_DATA.panduan.script);
-  renderCol('colApp', SITE_DATA.panduan.app);
-
-  // tombol bantuan -> WA + semua admin Telegram
+  // tombol bantuan -> semua admin Telegram
   const helpActions = document.getElementById('helpActions');
-  let helpHtml = `<a class="btn btn-primary" href="${SITE_DATA.kontak.whatsapp.link}" target="_blank" rel="noopener">Chat WhatsApp</a>`;
-  SITE_DATA.kontak.telegram.forEach(t => {
-    helpHtml += `<a class="btn btn-ghost" href="${t.link}" target="_blank" rel="noopener">Telegram — ${t.nama}</a>`;
-  });
-  helpActions.innerHTML = helpHtml;
+  helpActions.innerHTML = SITE_DATA.kontak.telegram.map((t,i) => `
+    <a class="btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}" href="${t.link}" target="_blank" rel="noopener">
+      ${t.owner ? '👑 ' : ''}@${t.nama}
+    </a>
+  `).join('');
 </script>
 
 </body>

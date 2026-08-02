@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cara Beli // Cdaaptnia</title>
+<meta name="description" content="Hubungi admin Cdaaptnia lewat Telegram buat proses pembelian.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cara Beli // Cdaaptnia">
+<meta property="og:description" content="Hubungi admin Cdaaptnia lewat Telegram buat proses pembelian.">
+<meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
+<meta property="og:url" content="{URL_WEBSITE}/kontak.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -23,10 +30,15 @@
   <div class="section-head">
     <span class="tag">// cara beli</span>
     <h2>Mau beli? Tinggal chat aja</h2>
-    <p>Nggak ada checkout otomatis — semua transaksi diproses manual lewat salah satu channel di bawah. Sebutin nama produk yang kamu mau pas chat, ya.</p>
+    <p>Nggak ada checkout otomatis — semua transaksi diproses manual lewat Telegram. Sebutin nama produk & paket yang kamu mau pas chat, ya.</p>
   </div>
 
   <div id="channelList" class="channels"></div>
+
+  <div class="faq-block">
+    <h3 class="faq-title">Pertanyaan yang sering ditanya</h3>
+    <div class="faq" id="faqList"></div>
+  </div>
 </section>
 
 <footer>
@@ -37,32 +49,24 @@
 <script src="data.js"></script>
 <script>
   const list = document.getElementById('channelList');
-  let html = '';
 
-  html += `
-    <a class="channel wa" href="${SITE_DATA.kontak.whatsapp.link}" target="_blank" rel="noopener">
-      <div class="left"><span class="chip"></span> ${SITE_DATA.kontak.whatsapp.nama}</div>
-      <span class="go mono">buka →</span>
-    </a>`;
+  list.innerHTML = SITE_DATA.kontak.telegram.map(t => `
+    <a class="channel tg" href="${t.link}" target="_blank" rel="noopener">
+      <div class="left">
+        <span class="chip"></span> @${t.nama}
+        ${t.owner ? '<span class="owner-badge">👑 OWNER</span>' : ''}
+      </div>
+      <span class="go mono">chat →</span>
+    </a>
+  `).join('');
 
-  html += `
-    <a class="channel dc" href="${SITE_DATA.kontak.discord.link}" target="_blank" rel="noopener">
-      <div class="left"><span class="chip"></span> ${SITE_DATA.kontak.discord.nama}</div>
-      <span class="go mono">buka →</span>
-    </a>`;
-
-  if (SITE_DATA.kontak.telegram.length > 0) {
-    html += `<div class="group-label">Telegram (${SITE_DATA.kontak.telegram.length} admin)</div>`;
-    SITE_DATA.kontak.telegram.forEach(t => {
-      html += `
-        <a class="channel tg" href="${t.link}" target="_blank" rel="noopener">
-          <div class="left"><span class="chip"></span> Telegram <span class="sub">— ${t.nama}</span></div>
-          <span class="go mono">buka →</span>
-        </a>`;
-    });
-  }
-
-  list.innerHTML = html;
+  const faqList = document.getElementById('faqList');
+  faqList.innerHTML = SITE_DATA.faq.map(f => `
+    <details class="faq-item">
+      <summary>${f.tanya}</summary>
+      <p>${f.jawab}</p>
+    </details>
+  `).join('');
 </script>
 
 </body>

@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Katalog // Cdaaptnia</title>
+<meta name="description" content="Lihat semua produk Cdaaptnia — script, app, dan tools lainnya lengkap dengan fitur & harga.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Katalog // Cdaaptnia">
+<meta property="og:description" content="Lihat semua produk Cdaaptnia — script, app, dan tools lainnya lengkap dengan fitur & harga.">
+<meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
+<meta property="og:url" content="{URL_WEBSITE}/katalog.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -23,7 +30,7 @@
   <div class="section-head">
     <span class="tag">// katalog</span>
     <h2>Produk yang tersedia</h2>
-    <p>Pilih produk yang cocok, lalu buka halaman "Cara Beli" untuk hubungi admin.</p>
+    <p>Pilih produk, tekan View buat lihat paket harga, cara pakai, dan fitur lengkapnya.</p>
   </div>
 
   <div class="catalog" id="catalogGrid"></div>
@@ -41,13 +48,19 @@
   SITE_DATA.produk.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card';
+    const thumb = p.gambar
+      ? `<div class="card-thumb"><img src="${p.gambar}" alt="Preview ${p.nama}" loading="lazy"></div>`
+      : `<div class="card-thumb placeholder">Belum ada preview</div>`;
+    const hargaMulai = p.paket && p.paket.length
+      ? `mulai ${p.paket.reduce((a,b) => (parseInt(a.harga.replace(/\D/g,'')) < parseInt(b.harga.replace(/\D/g,'')) ? a : b)).harga}`
+      : '';
     card.innerHTML = `
+      ${thumb}
       <span class="kind mono">${p.kategori}</span>
       <h3>${p.nama}</h3>
       <p>${p.deskripsi}</p>
-      <ul class="features">${p.fitur.map(f => `<li>${f}</li>`).join('')}</ul>
-      <div class="price">${p.harga}</div>
-      <a href="kontak.html" class="buy">Chat untuk beli</a>
+      <div class="price">${hargaMulai}</div>
+      <a href="produk.html?id=${encodeURIComponent(p.id)}" class="buy">View</a>
     `;
     grid.appendChild(card);
   });

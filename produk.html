@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Produk // Cdaaptnia</title>
+<meta name="description" id="pageDesc" content="Detail produk Cdaaptnia — paket harga, cara pakai, dan fitur lengkap.">
+<meta property="og:type" content="product">
+<meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="dot"></span> <a href="index.html">Cdaaptnia</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="links">
+    <a href="katalog.html" class="active">Katalog</a>
+    <a href="panduan.html">Panduan</a>
+    <a href="kontak.html">Cara Beli</a>
+  </div>
+</nav>
+
+<div id="notFound" class="section" style="display:none; text-align:center;">
+  <h2>Produk tidak ditemukan</h2>
+  <p style="color:var(--muted); margin:10px 0 20px;">Cek lagi link-nya, atau balik ke katalog.</p>
+  <a href="katalog.html" class="btn btn-primary">← Ke Katalog</a>
+</div>
+
+<div id="produkView">
+
+  <section class="section produk-hero">
+    <a href="katalog.html" class="back-link mono">← Kembali ke katalog</a>
+    <div id="produkThumb"></div>
+    <span class="kind mono" id="produkKategori"></span>
+    <h1 id="produkNama"></h1>
+    <p id="produkDeskripsi"></p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="tag">// paket</span>
+      <h2>Pilihan Paket</h2>
+      <p>Pilih durasi yang cocok, lalu chat admin buat proses pembelian.</p>
+    </div>
+    <div class="paket-grid" id="paketGrid"></div>
+  </section>
+
+  <section class="section" id="cara-pakai">
+    <div class="section-head">
+      <span class="tag">// cara penggunaan</span>
+      <h2 id="caraTitle">Cara Pakai</h2>
+    </div>
+    <div class="guide-col" style="max-width:640px;">
+      <div id="caraVideoWrap"></div>
+      <ol class="steps" id="caraSteps"></ol>
+      <div class="guide-note" id="caraCatatan" style="display:none;"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="tag">// fitur</span>
+      <h2>Feature</h2>
+      <p>Daftar lengkap modul yang ada di produk ini.</p>
+    </div>
+    <div class="fitur-list" id="fiturList"></div>
+  </section>
+
+  <section class="section">
+    <div class="help-box">
+      <div>
+        <h3>Mau beli produk ini?</h3>
+        <p>Chat salah satu admin di bawah, sebutin nama produk & paket yang dipilih.</p>
+      </div>
+      <div class="help-actions" id="produkChannels"></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span>© 2026 Cdaaptnia</span>
+  <a href="katalog.html" class="mono">← katalog</a>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const p = SITE_DATA.produk.find(x => x.id === id);
+
+  if(!p){
+    document.getElementById('produkView').style.display = 'none';
+    document.getElementById('notFound').style.display = 'block';
+  } else {
+    document.getElementById('pageTitle').textContent = p.nama + " // Cdaaptnia";
+    document.getElementById('pageDesc').setAttribute('content', p.deskripsi);
+    document.querySelector('meta[property="og:title"]')?.remove();
+    const ogT = document.createElement('meta');
+    ogT.setAttribute('property','og:title'); ogT.setAttribute('content', p.nama + " // Cdaaptnia");
+    document.head.appendChild(ogT);
+
+    document.getElementById('produkKategori').textContent = p.kategori;
+    document.getElementById('produkNama').textContent = p.nama;
+    document.getElementById('produkDeskripsi').textContent = p.deskripsi;
+    document.getElementById('produkThumb').innerHTML = p.gambar
+      ? `<div class="card-thumb produk-thumb-big"><img src="${p.gambar}" alt="Preview ${p.nama}"></div>`
+      : `<div class="card-thumb produk-thumb-big placeholder">Belum ada preview</div>`;
+
+    // Paket
+    const paketGrid = document.getElementById('paketGrid');
+    paketGrid.innerHTML = (p.paket || []).map(pk => `
+      <div class="paket-card ${pk.best ? 'best' : ''}">
+        ${pk.best ? '<span class="best-ribbon">BEST VALUE</span>' : ''}
+        <span class="paket-nama mono">${pk.nama}</span>
+        <div class="paket-durasi">${pk.durasi}</div>
+        <div class="paket-harga">${pk.harga}</div>
+      </div>
+    `).join('');
+
+    // Cara pakai
+    const cp = p.cara_pakai || {};
+    document.getElementById('caraTitle').textContent = "Cara Pakai " + p.nama;
+    document.getElementById('caraVideoWrap').innerHTML = cp.video_url
+      ? `<a href="${cp.video_url}" target="_blank" rel="noopener" class="video-btn">▶ Tonton video pemasangan</a>`
+      : '';
+    document.getElementById('caraSteps').innerHTML = (cp.langkah || []).map(l => `<li>${l}</li>`).join('');
+    if(cp.catatan){
+      const note = document.getElementById('caraCatatan');
+      note.style.display = 'block';
+      note.textContent = cp.catatan;
+    }
+
+    // Fitur
+    const fiturList = document.getElementById('fiturList');
+    fiturList.innerHTML = (p.fitur || []).map(f => `
+      <div class="fitur-card">
+        <div class="fitur-head">
+          <span class="fitur-icon">${f.icon || '✨'}</span>
+          <div>
+            <h3>${f.nama}</h3>
+            <p>${f.deskripsi || ''}</p>
+          </div>
+        </div>
+        <div class="fitur-sub">
+          ${(f.sub || []).map(s => `<div class="fitur-sub-item"><b>${s.judul}</b><span>${s.detail}</span></div>`).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    // Channel beli
+    const chWrap = document.getElementById('produkChannels');
+    chWrap.innerHTML = SITE_DATA.kontak.telegram.map(t => `
+      <a href="${t.link}" target="_blank" rel="noopener" class="btn btn-ghost">
+        ${t.owner ? '👑 ' : ''}@${t.nama}
+      </a>
+    `).join('');
+  }
+</script>
+
+</body>
+</html>
