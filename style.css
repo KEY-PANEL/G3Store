@@ -272,8 +272,12 @@ nav, .menu-hero, .menu-tiles, footer, .section{ position:relative; z-index:1; }
 .paket-card{
   position:relative; background:var(--panel); border:1px solid var(--line); border-radius:14px;
   padding:22px 20px; display:flex; flex-direction:column; gap:8px;
+  cursor:pointer; transition:border-color .15s ease, transform .15s ease; user-select:none;
 }
+.paket-card:hover{ border-color:var(--muted); transform:translateY(-2px); }
+.paket-card:focus-visible{ outline:2px solid var(--teal); outline-offset:2px; }
 .paket-card.best{ border-color:var(--teal); background:linear-gradient(160deg, rgba(79,184,166,0.12), var(--panel)); }
+.paket-card.selected{ border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
 .best-ribbon{
   position:absolute; top:0; right:0; background:var(--teal); color:var(--ink);
   font-size:0.65rem; font-weight:700; padding:5px 10px; border-radius:0 14px 0 10px; letter-spacing:.03em;
@@ -281,6 +285,18 @@ nav, .menu-hero, .menu-tiles, footer, .section{ position:relative; z-index:1; }
 .paket-nama{ color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; }
 .paket-durasi{ font-size:1.1rem; font-weight:700; }
 .paket-harga{ font-family:'JetBrains Mono',monospace; color:var(--gold); font-weight:600; font-size:1rem; }
+.paket-pick{
+  margin-top:6px; font-size:0.76rem; color:var(--muted); font-family:'JetBrains Mono',monospace;
+}
+.paket-card.selected .paket-pick{ color:var(--gold); font-weight:600; }
+
+.beli-bar{
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  margin-top:20px; background:var(--panel); border:1px solid var(--gold); border-radius:14px;
+  padding:16px 22px;
+}
+.beli-info{ font-size:0.9rem; }
+.beli-info b{ display:block; color:var(--text); margin-top:2px; }
 
 .fitur-list{ display:flex; flex-direction:column; gap:18px; }
 .fitur-card{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px; }

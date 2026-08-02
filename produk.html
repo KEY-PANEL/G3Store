@@ -46,6 +46,13 @@
       <p>Pilih durasi yang cocok, lalu chat admin buat proses pembelian.</p>
     </div>
     <div class="paket-grid" id="paketGrid"></div>
+    <div class="beli-bar" id="beliBar" style="display:none;">
+      <div class="beli-info">
+        <span class="mono">Paket dipilih:</span>
+        <b id="beliRingkasan"></b>
+      </div>
+      <a id="beliBtn" class="btn btn-primary" target="_blank" rel="noopener">Beli via Telegram →</a>
+    </div>
   </section>
 
   <section class="section" id="cara-pakai">
@@ -72,8 +79,8 @@
   <section class="section">
     <div class="help-box">
       <div>
-        <h3>Mau beli produk ini?</h3>
-        <p>Chat salah satu admin di bawah, sebutin nama produk & paket yang dipilih.</p>
+        <h3>Ada pertanyaan soal produk ini?</h3>
+        <p>Chat admin/reseller di bawah buat tanya-tanya dulu sebelum beli.</p>
       </div>
       <div class="help-actions" id="produkChannels"></div>
     </div>
@@ -110,16 +117,49 @@
       ? `<div class="card-thumb produk-thumb-big"><img src="${p.gambar}" alt="Preview ${p.nama}"></div>`
       : `<div class="card-thumb produk-thumb-big placeholder">Belum ada preview</div>`;
 
-    // Paket
+    // Kontak khusus produk ini (fallback ke admin umum kalau nggak diisi)
+    const contacts = (p.kontak && p.kontak.length) ? p.kontak : SITE_DATA.kontak.telegram;
+    const buyTarget = contacts.find(c => c.owner) || contacts[0];
+
+    // Paket — bisa dipilih, lalu munculin tombol Beli
     const paketGrid = document.getElementById('paketGrid');
-    paketGrid.innerHTML = (p.paket || []).map(pk => `
-      <div class="paket-card ${pk.best ? 'best' : ''}">
-        ${pk.best ? '<span class="best-ribbon">BEST VALUE</span>' : ''}
-        <span class="paket-nama mono">${pk.nama}</span>
-        <div class="paket-durasi">${pk.durasi}</div>
-        <div class="paket-harga">${pk.harga}</div>
-      </div>
-    `).join('');
+    const beliBar = document.getElementById('beliBar');
+    let selected = null;
+
+    function renderPaket(){
+      paketGrid.innerHTML = (p.paket || []).map((pk, i) => `
+        <div class="paket-card ${pk.best ? 'best' : ''} ${selected === i ? 'selected' : ''}" data-index="${i}" role="button" tabindex="0">
+          ${pk.best ? '<span class="best-ribbon">BEST VALUE</span>' : ''}
+          <span class="paket-nama mono">${pk.nama}</span>
+          <div class="paket-durasi">${pk.durasi}</div>
+          <div class="paket-harga">${pk.harga}</div>
+          <span class="paket-pick">${selected === i ? '✓ Dipilih' : 'Pilih paket'}</span>
+        </div>
+      `).join('');
+    }
+
+    function selectPaket(i){
+      selected = i;
+      renderPaket();
+      const pk = p.paket[i];
+      beliBar.style.display = 'flex';
+      document.getElementById('beliRingkasan').textContent = `${pk.nama} — ${pk.durasi} (${pk.harga})`;
+      const pesan = `Halo, saya mau beli ${p.nama} paket ${pk.nama} (${pk.durasi}) seharga ${pk.harga}.`;
+      document.getElementById('beliBtn').href = `${buyTarget.link}?text=${encodeURIComponent(pesan)}`;
+    }
+
+    renderPaket();
+    paketGrid.addEventListener('click', e => {
+      const card = e.target.closest('.paket-card');
+      if(!card) return;
+      selectPaket(parseInt(card.dataset.index));
+    });
+    paketGrid.addEventListener('keydown', e => {
+      const card = e.target.closest('.paket-card');
+      if(!card || (e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault();
+      selectPaket(parseInt(card.dataset.index));
+    });
 
     // Cara pakai
     const cp = p.cara_pakai || {};
@@ -151,9 +191,9 @@
       </div>
     `).join('');
 
-    // Channel beli
+    // Channel Q&A (per produk, fallback ke admin umum)
     const chWrap = document.getElementById('produkChannels');
-    chWrap.innerHTML = SITE_DATA.kontak.telegram.map(t => `
+    chWrap.innerHTML = contacts.map(t => `
       <a href="${t.link}" target="_blank" rel="noopener" class="btn btn-ghost">
         ${t.owner ? '👑 ' : ''}@${t.nama}
       </a>

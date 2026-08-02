@@ -37,14 +37,21 @@ const SITE_DATA = {
   //  fitur     : daftar kategori fitur. Tiap kategori punya
   //              icon (emoji), nama, deskripsi singkat, dan sub-list
   //              (judul + detail) buat rincian per fitur
+  //
+  //  kontak    : OPSIONAL. Isi kalau produk ini mau punya admin/reseller
+  //              sendiri (beda dari daftar admin umum di bawah).
+  //              Formatnya sama kayak kontak.telegram global:
+  //              [{ nama, link, owner }]. Kalau nggak diisi / dihapus,
+  //              otomatis pakai daftar admin umum.
   // ------------------------------------------------------
   produk: [
     {
-      id: "gag1",
-      nama: "GAG1",
-      kategori: "Roblox Script",
+      id: "GnG",
+      nama: "GnGMod",
+      kategori: "App-Mod",
       deskripsi: "Script otomasi lengkap dengan fitur combat, visual, dan utilitas.",
       gambar: "",
+      // kontak: [ { nama: "AdminGAG1", link: "https://t.me/xxxxxxx", owner: true } ],
       paket: [
         { nama: "Paket Hemat", durasi: "3 Hari", harga: "Rp 70.000", best: false },
         { nama: "Paket Reguler", durasi: "5 Hari", harga: "Rp 105.000", best: false },
@@ -132,7 +139,7 @@ const SITE_DATA = {
   // ------------------------------------------------------
   kontak: {
     telegram: [
-      { nama: "OnlyHeya", link: "https://t.me/xxxxxxx", owner: true },
+      { nama: "OnlyHeya", link: "https://t.me/Yt_Lulu", owner: true },
       { nama: "Admin 2", link: "https://t.me/yyyyyyy", owner: false },
       { nama: "Admin 3", link: "https://t.me/zzzzzzz", owner: false }
     ]
