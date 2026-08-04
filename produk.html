@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Produk // Cdaaptnia</title>
-<meta name="description" id="pageDesc" content="Detail produk Cdaaptnia — paket harga, cara pakai, dan fitur lengkap.">
+<title id="pageTitle">Produk // StarDev</title>
+<meta name="description" id="pageDesc" content="Detail produk StarDev — paket harga, cara pakai, dan fitur lengkap.">
 <meta property="og:type" content="product">
 <meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -16,7 +16,7 @@
 <body>
 
 <nav>
-  <div class="brand"><span class="dot"></span> <a href="index.html">Cdaaptnia</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="brand"><span class="dot"></span> <a href="index.html">StarDev</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
   <div class="links">
     <a href="katalog.html" class="active">Katalog</a>
     <a href="panduan.html">Panduan</a>
@@ -90,7 +90,7 @@
 </div>
 
 <footer>
-  <span>© 2026 Cdaaptnia</span>
+  <span>© 2026 StarDev</span>
   <a href="katalog.html" class="mono">← katalog</a>
 </footer>
 
@@ -104,11 +104,11 @@
     document.getElementById('produkView').style.display = 'none';
     document.getElementById('notFound').style.display = 'block';
   } else {
-    document.getElementById('pageTitle').textContent = p.nama + " // Cdaaptnia";
+    document.getElementById('pageTitle').textContent = p.nama + " // StarDev";
     document.getElementById('pageDesc').setAttribute('content', p.deskripsi);
     document.querySelector('meta[property="og:title"]')?.remove();
     const ogT = document.createElement('meta');
-    ogT.setAttribute('property','og:title'); ogT.setAttribute('content', p.nama + " // Cdaaptnia");
+    ogT.setAttribute('property','og:title'); ogT.setAttribute('content', p.nama + " // StarDev");
     document.head.appendChild(ogT);
 
     document.getElementById('produkKategori').textContent = p.kategori;

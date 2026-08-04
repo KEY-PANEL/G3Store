@@ -12,7 +12,7 @@
 //   {admin}   -> otomatis diganti jumlah admin kontak
 // ============================================================
 
-BOOT|Booting Cdaaptnia Admin Panel...
+BOOT|Booting StarDev Admin Panel...
 BOOT|Memuat modul toko... OK
 BOOT|Verifikasi lisensi... OK
 BOOT|Menghubungkan ke database produk... OK
