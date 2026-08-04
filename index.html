@@ -13,6 +13,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -81,9 +82,9 @@
   <div class="section-head">
     <span class="tag">// testimoni</span>
     <h2>Apa kata pembeli</h2>
-    <p>Sebagian cerita dari yang udah pernah beli di sini.</p>
+    <p>Lihat testimoni & bukti transaksi lengkap di channel kami.</p>
   </div>
-  <div class="testi-grid" id="testiGrid"></div>
+  <a id="testiLink" href="#" target="_blank" rel="noopener" class="btn btn-primary">Lihat testimoni →</a>
 </section>
 
 <footer>
@@ -102,16 +103,7 @@
   document.getElementById('statProduk').textContent = SITE_DATA.produk.length;
   document.getElementById('statAdmin').textContent = SITE_DATA.kontak.telegram.length;
 
-  const testiGrid = document.getElementById('testiGrid');
-  testiGrid.innerHTML = SITE_DATA.testimoni.map(t => `
-    <div class="testi-card">
-      <p class="testi-msg">"${t.pesan}"</p>
-      <div class="testi-who">
-        <span class="testi-name">${t.nama}</span>
-        ${t.produk ? `<span class="testi-produk">— ${t.produk}</span>` : ''}
-      </div>
-    </div>
-  `).join('');
+  document.getElementById('testiLink').href = SITE_DATA.testimoniLink;
 
   // Loading screen — teks BOOT diambil dari setword.txt
   const bootScreen = document.getElementById('bootScreen');
