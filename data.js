@@ -50,7 +50,7 @@ const SITE_DATA = {
       nama: "Gold & Glory Cheats",
       kategori: "Game Cheat / Android App",
       deskripsi: "Compatible with Root or Non-Root. Risiko ban ada, jadi gunakan dengan bijak.",
-      gambar: "",
+      gambar: "asset/gold-glory-cheats.png",
       kontak: [
         { nama: "Heya", link: "https://t.me/OnlyHeya", owner: true },
         { nama: "Duxess", link: "https://t.me/DuxessV3", owner: false },
@@ -122,7 +122,7 @@ const SITE_DATA = {
       nama: "Roblox Script",
       kategori: "Roblox Script",
       deskripsi: "Tersedia script untuk Grow a Garden Pet System, Kayak & Craft. Bisa request fitur lain sesuai kebutuhan.",
-      gambar: "",
+      gambar: "asset/roblox-script.png",
       kontak: [
         { nama: "Yt_Lulu", link: "https://t.me/Yt_Lulu", owner: true }
       ],
@@ -164,7 +164,7 @@ const SITE_DATA = {
       nama: "Keyless Panel",
       kategori: "Admin Panel / Tool",
       deskripsi: "Tersedia untuk Roblox script, fake lib, dan mod APK. Memiliki admin panel, bot Telegram/Discord, serta sistem keamanan.",
-      gambar: "",
+      gambar: "asset/keyless-panel.png",
       kontak: [
         { nama: "Yt_Lulu", link: "https://t.me/Yt_Lulu", owner: true }
       ],
