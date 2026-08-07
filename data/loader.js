@@ -116,12 +116,18 @@
     const description = product.deskripsi || product.shortDesc || '';
     const compatibility = product.compatibility ? ` (${product.compatibility})` : '';
 
+    const imageList = Array.isArray(product.images)
+      ? product.images.filter(Boolean)
+      : [];
+    const primaryImage = imageList[0] || product.gambar || product.image || '';
+
     return {
       id: product.id,
       nama: product.nama || product.name || '',
       kategori: product.kategori || product.category || '',
       deskripsi: `${description}${compatibility}`.trim(),
-      gambar: product.gambar || product.image || '',
+      gambar: primaryImage,
+      images: imageList,
       kontak: normalizeContacts(product),
       paket: product.paket || normalizePricing(product.pricing),
       cara_pakai: product.cara_pakai || {
