@@ -266,10 +266,10 @@ nav, .menu-hero, .menu-tiles, footer, .section, .produk-hero{ position:relative;
 .preview-modal{
   position:fixed;
   inset:0;
-  z-index:150;
+  z-index:1000;
   display:none;
   place-items:center;
-  background:rgba(0,0,0,0.72);
+  background:rgba(0,0,0,0.82);
   padding:24px;
 }
 .preview-modal.open{
