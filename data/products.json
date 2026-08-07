@@ -7,8 +7,11 @@
       "compatibility": "Root atau Non-Root",
       "shortDesc": "Cheat lengkap Combat, Visual, dan Misc untuk Gold & Glory",
       "disclaimer": "Risk of Ban. Jika kena banned, itu tanggung jawab pengguna. Gunakan dengan bijak.",
-      "images": ["asset/gold-glory-cheats.png",
-                 "asset/gold-glory-cheats2.png"],
+      "images": [
+        "asset/gold-glory-cheats.png",
+        "asset/gold-glory-cheats2.png"
+      ],
+      "image": "asset/gold-glory-cheats.png",
       "features": {
         "Combat": {
           "Aim Settings": ["Draw Fov", "Draw Line", "Draw Dot", "Fov Value", "Smart Aim Target", "Silent Aim (Auto Headshot)", "Silent Skill", "Arrow Trace"],

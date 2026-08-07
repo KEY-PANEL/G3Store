@@ -119,7 +119,8 @@
     const imageList = Array.isArray(product.images)
       ? product.images.filter(Boolean)
       : [];
-    const primaryImage = imageList[0] || product.gambar || product.image || '';
+    const fallbackImage = product.gambar || product.image || '';
+    const primaryImage = imageList[0] || fallbackImage;
 
     return {
       id: product.id,
@@ -127,7 +128,7 @@
       kategori: product.kategori || product.category || '',
       deskripsi: `${description}${compatibility}`.trim(),
       gambar: primaryImage,
-      images: imageList,
+      images: imageList.length ? imageList : (fallbackImage ? [fallbackImage] : []),
       kontak: normalizeContacts(product),
       paket: product.paket || normalizePricing(product.pricing),
       cara_pakai: product.cara_pakai || {
