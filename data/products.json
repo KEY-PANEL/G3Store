@@ -64,7 +64,8 @@
       "category": "Tools/Web",
       "compatibility": "Web-based, integrasi Vercel & Telegram Bot",
       "shortDesc": "Panel manajemen license key & HWID dengan integrasi Telegram Bot",
-      "image": "asset/keyless-panel.png",
+      "image": ["asset/keyless-panel.png",
+                "asset/keyless-panel2.png"],
       "features": {
         "License": ["Login & Verify Key", "Activate/Bind HWID", "Check Key Expiration"],
         "Security": ["Dedicated Security Endpoint", "Receive Security Reports", "Security Webhook Notifications"],
