@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="/">
 <title id="pageTitle"></title>
 <meta name="description" id="pageDesc" content="">
 <meta property="og:type" content="product">
@@ -122,9 +123,28 @@
     document.getElementById('produkKategori').textContent = p.kategori;
     document.getElementById('produkNama').textContent = p.nama;
     document.getElementById('produkDeskripsi').textContent = p.deskripsi;
-    document.getElementById('produkThumb').innerHTML = p.gambar
-      ? `<div class="card-thumb produk-thumb-big"><img src="${p.gambar}" alt="Preview ${p.nama}"></div>`
-      : `<div class="card-thumb produk-thumb-big placeholder">Belum ada preview</div>`;
+
+    const images = Array.isArray(p.images) && p.images.length ? p.images : (p.gambar ? [p.gambar] : []);
+    if (images.length) {
+      document.getElementById('produkThumb').innerHTML = `
+        <div class="card-thumb produk-thumb-big"><img src="${images[0]}" alt="Preview ${p.nama}"></div>
+        ${images.length > 1 ? `<div class="produk-gallery-thumbs">${images.map((src, i) => `
+          <button type="button" class="produk-thumb-btn${i === 0 ? ' active' : ''}" data-src="${src}">
+            <img src="${src}" alt="Thumbnail ${i + 1} ${p.nama}">
+          </button>
+        `).join('')}</div>` : ''}
+      `;
+      if (images.length > 1) {
+        document.querySelectorAll('.produk-thumb-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelector('.produk-thumb-big img').src = btn.dataset.src;
+            document.querySelectorAll('.produk-thumb-btn').forEach(b => b.classList.toggle('active', b === btn));
+          });
+        });
+      }
+    } else {
+      document.getElementById('produkThumb').innerHTML = `<div class="card-thumb produk-thumb-big placeholder">Belum ada preview</div>`;
+    }
 
     // Kontak khusus produk ini (fallback ke admin umum kalau nggak diisi)
     const contacts = (p.kontak && p.kontak.length) ? p.kontak : SITE_DATA.kontak.telegram;
