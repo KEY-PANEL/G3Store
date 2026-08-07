@@ -46,7 +46,6 @@
   },
   "kontak": {
     "telegram": [
-      { "nama": "OnlyHeya", "link": "https://t.me/OnlyHeya", "owner": true },
       { "nama": "OnlyHeya", "link": "https://t.me/OnlyHeya", "owner": false },
       { "nama": "Yt_Lulu", "link": "https://t.me/Yt_Lulu", "owner": false }
     ]
