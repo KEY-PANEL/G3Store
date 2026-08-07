@@ -1,0 +1,97 @@
+{
+  "products": [
+    {
+      "id": "modgng",
+      "name": "Gold & Glory Cheats",
+      "category": "Android App",
+      "compatibility": "Root atau Non-Root",
+      "shortDesc": "Cheat lengkap Combat, Visual, dan Misc untuk Gold & Glory",
+      "disclaimer": "Risk of Ban. Jika kena banned, itu tanggung jawab pengguna. Gunakan dengan bijak.",
+      "image": "asset/gold-glory-cheats.png",
+      "features": {
+        "Combat": {
+          "Aim Settings": ["Draw Fov", "Draw Line", "Draw Dot", "Fov Value", "Smart Aim Target", "Silent Aim (Auto Headshot)", "Silent Skill", "Arrow Trace"],
+          "Jump Settings": ["Enable High Jump", "Jump Mode", "High Jump v1 Value (Premium)", "Disable Jump Animation", "High Jump v2 Value", "Gravity Value"],
+          "Player Settings": ["Spoof Nickname", "Player Level", "No Collision", "Anti Stun", "Player Height"],
+          "Gravity Settings": ["Enable Gravity", "Gravity On First Jump", "Gravity After First Jump"],
+          "Speed Settings": ["Movement Speed Mode", "Stand Speed", "Crouch Speed", "Attack Speed", "Fly Speed (Premium)"]
+        },
+        "Visual": {
+          "Chams": ["Shader", "Visible Color", "Occluded Color"],
+          "ESP": {
+            "Player ESP": ["Box", "Name", "Line", "Health", "Dot", "Distance", "Class", "Last Position"],
+            "Monster ESP": ["Box", "Name", "Line", "Health", "Dot", "Distance"],
+            "Chest ESP": ["Line", "Name", "Dot", "Distance"]
+          },
+          "Camera Settings": ["Camera FOV", "Camera FOV Value"],
+          "Object Scanner": true
+        },
+        "Misc": {
+          "Item": ["Skip Search", "Auto Loot (Premium)", "Auto Drop (Premium)", "Show Ground Item", "Show Inventory Item", "Owner Filter", "Quality Filter", "Item Table"],
+          "Emote": ["Emote List"],
+          "Player List": ["Player Table"],
+          "Other": ["Il2Cpp Dump", "Exit Match", "Force Exit", "Fix Screen Coordinate", "Unban Account (Premium)", "Reset Banned Reminder"],
+          "Guest": ["Save Guest", "Load Guest", "Reset Guest"]
+        },
+        "Settings": {
+          "Menu Interface": ["Target FPS", "Menu Scale", "Font Scale", "Scrollbar Size", "Grab Size", "Sidebar Width", "Save Config", "Load Config"],
+          "Theme": ["Neon Accent", "Background"]
+        }
+      },
+      "pricing": [
+        { "label": "3 Hari", "priceIDR": 70000, "priceUSD": 4, "telegramText": "Mau order Gold & Glory Cheats paket 3 Hari" },
+        { "label": "5 Hari", "priceIDR": 105000, "priceUSD": 6, "telegramText": "Mau order Gold & Glory Cheats paket 5 Hari" },
+        { "label": "10 Hari", "priceIDR": 140000, "priceUSD": 8, "telegramText": "Mau order Gold & Glory Cheats paket 10 Hari" },
+        { "label": "1 Bulan", "priceIDR": 250000, "priceUSD": 15, "telegramText": "Mau order Gold & Glory Cheats paket 1 Bulan" }
+      ],
+      "reseller": { "username": "@Yt_Lulu" },
+      "supportContact": "@OnlyHeya",
+      "note": "No refund untuk semua transaksi"
+    },
+    {
+      "id": "keyless-panel",
+      "name": "Keyless Panel",
+      "category": "Tools/Web",
+      "compatibility": "Web-based, integrasi Vercel & Telegram Bot",
+      "shortDesc": "Panel manajemen license key & HWID dengan integrasi Telegram Bot",
+      "image": "asset/keyless-panel.png",
+      "features": {
+        "License": ["Login & Verify Key", "Activate/Bind HWID", "Check Key Expiration"],
+        "Security": ["Dedicated Security Endpoint", "Receive Security Reports", "Security Webhook Notifications"],
+        "Admin Panel": ["Admin Login", "Admin Dashboard", "Manage Keys", "Manage HWID", "Redis Database Integration"],
+        "Key Management": ["Add Key", "Edit Key", "Delete Key", "List Keys", "List Full Key Data", "Permanent Keys", "Duration Keys (Hours/Days/Weeks/Months)"],
+        "HWID Management": ["Block HWID", "Unblock HWID", "Blocked HWID List", "Auto & Manual HWID Blocking"],
+        "Telegram Bot": ["/help", "/listkey", "/addkey", "/editkey", "/deletekey", "/listfull", "/listblock", "/blockhwid", "/unblockhwid", "/cancel"],
+        "Integration": ["Telegram Webhook", "Telegram Chat ID", "Vercel API", "Upstash Redis"]
+      },
+      "pricing": [
+        { "label": "Lifetime", "priceIDR": 100000, "telegramText": "Mau order Keyless Panel paket Lifetime" },
+        { "label": "Source", "priceIDR": 150000, "telegramText": "Mau order Source Keyless Panel" }
+      ],
+      "reseller": { "username": "@Yt_Lulu" },
+      "supportContact": "@Yt_Lulu",
+      "note": "Kalau mau custom, biaya di atas harga Lifetime"
+    },
+    {
+      "id": "roblox-script",
+      "name": "Roblox Script",
+      "category": "Scripts/Roblox",
+      "compatibility": "Delta Executor",
+      "shortDesc": "Script Roblox siap pakai maupun custom request untuk berbagai game.",
+      "image": "asset/roblox-script.png",
+      "features": {
+        "Customization": ["Script Request", "Custom Features", "Custom UI", "Map-Specific Scripts"],
+        "Compatibility": ["Delta Executor", "Keyless Script"]
+      },
+      "pricing": [
+        { "label": "Script", "priceIDR": 25000, "telegramText": "Mau order Roblox Script" },
+        { "label": "Source", "priceIDR": 50000, "telegramText": "Mau order Source Roblox Script" }
+      ],
+      "reseller": { "username": "@Yt_Lulu" },
+      "supportContact": "@Yt_Lulu",
+      "note": "Selain script yang sudah tersedia, kami juga menerima pembuatan script berdasarkan request. Harga mulai dari Rp25.000 dan dapat berubah sesuai tingkat kesulitan serta fitur yang diminta."
+    }
+  ],
+  "adminContact": ""
+}
+

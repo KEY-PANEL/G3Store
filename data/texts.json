@@ -1,0 +1,73 @@
+{
+  "brand": "StarDev",
+  "site": {
+    "title": "StarDev // Script & App Store",
+    "description": "Script otomasi, aplikasi Android, sampai tools digital custom — tinggal chat, langsung kirim.",
+    "url": "{URL_WEBSITE}/",
+    "ogImage": "{URL_WEBSITE}/assets/og-image.png",
+    "twitterCard": "summary_large_image",
+    "footerText": "status: open for orders",
+    "nav": {
+      "katalog": "Katalog",
+      "panduan": "Panduan",
+      "kontak": "Cara Beli"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "StarDev // Script & App Store",
+      "description": "Script otomasi, aplikasi Android, sampai tools digital custom — tinggal chat, langsung kirim.",
+      "url": "{URL_WEBSITE}/"
+    },
+    "katalog": {
+      "title": "Katalog // StarDev",
+      "description": "Lihat semua produk StarDev — script, app, dan tools lainnya lengkap dengan fitur & harga.",
+      "url": "{URL_WEBSITE}/katalog.html"
+    },
+    "kontak": {
+      "title": "Cara Beli // StarDev",
+      "description": "Hubungi admin StarDev lewat Telegram buat proses pembelian.",
+      "url": "{URL_WEBSITE}/kontak.html"
+    },
+    "panduan": {
+      "title": "Panduan // StarDev",
+      "description": "Video pemasangan dan langkah-langkah penggunaan untuk script maupun app dari StarDev.",
+      "url": "{URL_WEBSITE}/panduan.html"
+    },
+    "produk": {
+      "title": "Produk // StarDev",
+      "description": "Detail produk StarDev — paket harga, cara pakai, dan fitur lengkap.",
+      "url": "{URL_WEBSITE}/produk.html"
+    }
+  },
+  "hero": {
+    "headline": "Script & app siap pakai, tinggal chat, langsung kirim.",
+    "deskripsi": "Kami bikin dan jual tools digital — script otomasi, aplikasi Android, sampai tools kustom."
+  },
+  "kontak": {
+    "telegram": [
+      { "nama": "OnlyHeya", "link": "https://t.me/OnlyHeya", "owner": true },
+      { "nama": "OnlyHeya", "link": "https://t.me/OnlyHeya", "owner": false },
+      { "nama": "Yt_Lulu", "link": "https://t.me/Yt_Lulu", "owner": false }
+    ]
+  },
+  "faq": [
+    {
+      "tanya": "Gimana cara belinya?",
+      "jawab": "Pilih produk di halaman Katalog, tekan View buat lihat paket & fitur, terus chat admin Telegram sesuai paket yang dipilih."
+    },
+    {
+      "tanya": "Pembayaran lewat apa aja?",
+      "jawab": "Metode pembayaran diinfoin langsung sama admin pas chat, menyesuaikan yang tersedia saat itu."
+    },
+    {
+      "tanya": "Berapa lama produk dikirim setelah bayar?",
+      "jawab": "Umumnya langsung dikirim begitu pembayaran dikonfirmasi admin. Kalau butuh waktu lebih, admin bakal infoin."
+    },
+    {
+      "tanya": "Script/app-nya kompatibel di mana aja?",
+      "jawab": "Cek bagian Fitur di halaman detail tiap produk, atau tanya langsung ke admin sebelum beli kalau masih ragu."
+    }
+  ],
+  "testimoniLink": "{URL_TESTIMONI}"
+}
