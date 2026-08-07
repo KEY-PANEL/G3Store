@@ -19,6 +19,9 @@
 </head>
 <body>
 
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
 <nav>
   <div class="brand"><span class="dot"></span> <a href="index.html" id="brandName"></a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
   <div class="links">
@@ -135,25 +138,18 @@
     document.getElementById('produkDeskripsi').textContent = p.deskripsi;
 
     const images = Array.isArray(p.images) && p.images.length ? p.images : (p.gambar ? [p.gambar] : []);
-    if (images.length) {
+    if (images.length > 1) {
       document.getElementById('produkThumb').innerHTML = `
-        <div class="card-thumb produk-thumb-big"><img src="${images[0]}" alt="Preview ${p.nama}"></div>
-        ${images.length > 1 ? `<div class="produk-gallery-thumbs">${images.map((src, i) => `
-          <button type="button" class="produk-thumb-btn${i === 0 ? ' active' : ''}" data-src="${src}">
-            <img src="${src}" alt="Thumbnail ${i + 1} ${p.nama}">
-          </button>
-        `).join('')}</div>` : ''}
+        <div class="produk-gallery">${images.map((src, i) => `
+          <div class="card-thumb"><img src="${src}" alt="Preview ${i + 1} ${p.nama}"></div>
+        `).join('')}</div>
       `;
-      if (images.length > 1) {
-        document.querySelectorAll('.produk-thumb-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelector('.produk-thumb-big img').src = btn.dataset.src;
-            document.querySelectorAll('.produk-thumb-btn').forEach(b => b.classList.toggle('active', b === btn));
-          });
-        });
-      }
+    } else if (images.length === 1) {
+      document.getElementById('produkThumb').innerHTML = `
+        <div class="card-thumb produk-thumb-single"><img src="${images[0]}" alt="Preview ${p.nama}"></div>
+      `;
     } else {
-      document.getElementById('produkThumb').innerHTML = `<div class="card-thumb produk-thumb-big placeholder">Belum ada preview</div>`;
+      document.getElementById('produkThumb').innerHTML = `<div class="card-thumb produk-thumb-single placeholder">Belum ada preview</div>`;
     }
 
     // Kontak khusus produk ini (fallback ke admin umum kalau nggak diisi)
