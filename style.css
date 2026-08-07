@@ -244,6 +244,10 @@ nav, .menu-hero, .menu-tiles, footer, .section, .produk-hero{ position:relative;
   gap:14px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
+  scroll-snap-stop:always;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  touch-action:pan-x;
   padding-bottom:6px;
   scrollbar-width:thin;
   scrollbar-color:var(--line) transparent;
@@ -252,7 +256,9 @@ nav, .menu-hero, .menu-tiles, footer, .section, .produk-hero{ position:relative;
 .produk-gallery::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
 .produk-gallery .card-thumb{
   margin:0;
-  flex:0 0 clamp(220px,60%,340px);
+  flex:0 0 auto;
+  width:clamp(220px,47vw,340px);
+  min-width:220px;
   aspect-ratio:16/10;
   border-radius:14px;
   scroll-snap-align:start;
