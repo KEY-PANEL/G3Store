@@ -20,7 +20,8 @@
 <body>
 
 <div class="bg-grid"></div>
-<div class="bg-glow"></div>
+<div class="bg-glow"><span class="orb-3"></span></div>
+<div class="bg-scan"></div>
 
 <nav>
   <div class="brand"><span class="dot"></span> <a href="index.html" id="brandName"></a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
@@ -61,18 +62,6 @@
         <b id="beliRingkasan"></b>
       </div>
       <a id="beliBtn" class="btn btn-primary" target="_blank" rel="noopener">Beli via Telegram →</a>
-    </div>
-  </section>
-
-  <section class="section" id="cara-pakai">
-    <div class="section-head">
-      <span class="tag">// cara penggunaan</span>
-      <h2 id="caraTitle">Cara Pakai</h2>
-    </div>
-    <div class="guide-col" style="max-width:640px;">
-      <div id="caraVideoWrap"></div>
-      <ol class="steps" id="caraSteps"></ol>
-      <div class="guide-note" id="caraCatatan" style="display:none;"></div>
     </div>
   </section>
 
@@ -143,6 +132,7 @@
         <div class="produk-gallery">${images.map((src, i) => `
           <div class="card-thumb"><img src="${src}" alt="Preview ${i + 1} ${p.nama}"></div>
         `).join('')}</div>
+        <div class="mono" style="color:var(--muted); font-size:0.76rem; margin-top:8px;">← geser buat lihat preview lainnya →</div>
       `;
     } else if (images.length === 1) {
       document.getElementById('produkThumb').innerHTML = `
@@ -196,23 +186,6 @@
       selectPaket(parseInt(card.dataset.index));
     });
 
-    // Cara pakai
-    const cp = p.cara_pakai || {};
-    const caraSection = document.getElementById('cara-pakai');
-    document.getElementById('caraTitle').textContent = "Cara Pakai " + p.nama;
-    document.getElementById('caraVideoWrap').innerHTML = cp.video_url
-      ? `<a href="${cp.video_url}" target="_blank" rel="noopener" class="video-btn">▶ Tonton video pemasangan</a>`
-      : '';
-    document.getElementById('caraSteps').innerHTML = (cp.langkah || []).map(l => `<li>${l}</li>`).join('');
-    if(cp.catatan){
-      const note = document.getElementById('caraCatatan');
-      note.style.display = 'block';
-      note.textContent = cp.catatan;
-    }
-    if (!cp.video_url && (!Array.isArray(cp.langkah) || !cp.langkah.length) && !cp.catatan) {
-      caraSection.style.display = 'none';
-    }
-
     // Fitur — ditampilkan sebagai output terminal
     document.getElementById('fiturPath').textContent = `~/produk/${p.id}`;
     const fiturList = document.getElementById('fiturList');
@@ -226,13 +199,13 @@
       </div>
     `).join('');
 
-    // Channel Q&A (per produk, fallback ke admin umum)
+    // Channel Q&A (per produk, fallback ke admin umum) — cukup 1 tombol admin utama
     const chWrap = document.getElementById('produkChannels');
-    chWrap.innerHTML = contacts.map(t => `
-      <a href="${t.link}" target="_blank" rel="noopener" class="btn btn-ghost">
-        ${t.owner ? '👑 ' : ''}@${t.nama}
+    chWrap.innerHTML = `
+      <a href="${buyTarget.link}" target="_blank" rel="noopener" class="btn btn-primary">
+        ${buyTarget.owner ? '👑 ' : ''}Chat @${buyTarget.nama} →
       </a>
-    `).join('');
+    `;
   }
 </script>
 

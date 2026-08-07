@@ -20,7 +20,8 @@
 <body>
 
 <div class="bg-grid"></div>
-<div class="bg-glow"></div>
+<div class="bg-glow"><span class="orb-3"></span></div>
+<div class="bg-scan"></div>
 
 <nav>
   <div class="brand"><span class="dot"></span> <a href="index.html" id="brandName"></a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
@@ -86,15 +87,16 @@
   });
 
   const uniqueContacts = Array.from(contactMap.values());
-  list.innerHTML = uniqueContacts.map(t => `
-    <a class="channel tg" href="${t.link}" target="_blank" rel="noopener">
+  const mainContact = uniqueContacts.find(t => t.owner) || uniqueContacts[0];
+  list.innerHTML = mainContact ? `
+    <a class="channel tg" href="${mainContact.link}" target="_blank" rel="noopener">
       <div class="left">
-        <span class="chip"></span> @${t.nama}
-        ${t.owner ? '<span class="owner-badge">👑 OWNER</span>' : ''}
+        <span class="chip"></span> @${mainContact.nama}
+        ${mainContact.owner ? '<span class="owner-badge">👑 OWNER</span>' : ''}
       </div>
       <span class="go mono">chat →</span>
     </a>
-  `).join('');
+  ` : '';
 
   const faqList = document.getElementById('faqList');
   faqList.innerHTML = SITE_DATA.faq.map(f => `

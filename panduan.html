@@ -20,7 +20,8 @@
 <body>
 
 <div class="bg-grid"></div>
-<div class="bg-glow"></div>
+<div class="bg-glow"><span class="orb-3"></span></div>
+<div class="bg-scan"></div>
 
 <nav>
   <div class="brand"><span class="dot"></span> <a href="index.html" id="brandName"></a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
@@ -78,7 +79,9 @@
         </summary>
         <div style="margin-top:12px;">
           <p style="color:var(--text);">${p.deskripsi}</p>
-          <a href="produk.html?id=${encodeURIComponent(p.id)}#cara-pakai" class="btn btn-ghost" style="margin-top:8px; display:inline-block;">Buka panduan lengkap</a>
+          ${p.cara_pakai && p.cara_pakai.video_url ? `<a href="${p.cara_pakai.video_url}" target="_blank" rel="noopener" class="video-btn" style="margin-top:12px;">▶ Tonton video pemasangan</a>` : ''}
+          ${p.cara_pakai && Array.isArray(p.cara_pakai.langkah) && p.cara_pakai.langkah.length ? `<ol class="steps" style="margin-top:12px;">${p.cara_pakai.langkah.map(l => `<li>${l}</li>`).join('')}</ol>` : ''}
+          ${p.cara_pakai && p.cara_pakai.catatan ? `<div class="guide-note" style="margin-top:12px;">${p.cara_pakai.catatan}</div>` : ''}
         </div>
       </details>
     `;
