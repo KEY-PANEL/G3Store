@@ -14,13 +14,13 @@
       ],
       "image": "asset/gold-glory-cheats.png",
       "features": {
-        "Combat": {
+        "Combat": 
           "Aim Settings": ["Draw Fov", "Draw Line", "Draw Dot", "Fov Value", "Smart Aim Target", "Silent Aim (Auto Headshot)", "Silent Skill", "Arrow Trace"],
           "Jump Settings": ["Enable High Jump", "Jump Mode", "High Jump v1 Value (Premium)", "Disable Jump Animation", "High Jump v2 Value", "Gravity Value"],
           "Player Settings": ["Spoof Nickname", "Player Level", "No Collision", "Anti Stun", "Player Height"],
           "Gravity Settings": ["Enable Gravity", "Gravity On First Jump", "Gravity After First Jump"],
           "Speed Settings": ["Movement Speed Mode", "Stand Speed", "Crouch Speed", "Attack Speed", "Fly Speed (Premium)"]
-        },
+        ,
         "Visual": {
           "Chams": ["Shader", "Visible Color", "Occluded Color"],
           "ESP": {
