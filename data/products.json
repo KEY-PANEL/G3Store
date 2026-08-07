@@ -10,8 +10,7 @@
       "images": [
         "asset/gold-glory-cheats.png",
         "asset/gold-glory-cheats2.png",
-        "asset/gold-glory-cheats3.png"
-      ],
+        "asset/gold-glory-cheats3.png"],
       "image": "asset/gold-glory-cheats.png",
       "features": {
         "Combat": {
