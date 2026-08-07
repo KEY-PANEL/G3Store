@@ -50,7 +50,13 @@
       ],
       "reseller": { "username": "@Yt_Lulu" },
       "supportContact": "@OnlyHeya",
-      "note": "No refund untuk semua transaksi"
+      "note": "No refund untuk semua transaksi",
+      "cara_pakai": {
+        "langkah": [
+          "Chat @OnlyHeya di Telegram untuk order dan instruksi selanjutnya.",
+          "Admin akan membantu proses pemasangan dan konfigurasi."
+        ]
+      }
     },
     {
       "id": "keyless-panel",
@@ -74,7 +80,13 @@
       ],
       "reseller": { "username": "@Yt_Lulu" },
       "supportContact": "@Yt_Lulu",
-      "note": "Kalau mau custom, biaya di atas harga Lifetime"
+      "note": "Kalau mau custom, biaya di atas harga Lifetime",
+      "cara_pakai": {
+        "langkah": [
+          "Hubungi admin untuk arahan penggunaan dan setup.",
+          "Semua detail produk akan diarahkan oleh admin setelah chat."
+        ]
+      }
     },
     {
       "id": "roblox-script",
@@ -93,7 +105,14 @@
       ],
       "reseller": { "username": "@Yt_Lulu" },
       "supportContact": "@Yt_Lulu",
-      "note": "Selain script yang sudah tersedia, kami juga menerima pembuatan script berdasarkan request. Harga mulai dari Rp25.000 dan dapat berubah sesuai tingkat kesulitan serta fitur yang diminta."
+      "note": "Selain script yang sudah tersedia, kami juga menerima pembuatan script berdasarkan request. Harga mulai dari Rp25.000 dan dapat berubah sesuai tingkat kesulitan serta fitur yang diminta.",
+      "cara_pakai": {
+        "langkah": [
+          "Hubungi admin untuk menentukan script Roblox yang kamu butuhkan.",
+          "Sebutkan game, executor, dan fitur yang diinginkan.",
+          "Admin akan mengarahkan setup serta pengiriman file script atau source code."
+        ]
+      }
     }
   ],
   "adminContact": ""
