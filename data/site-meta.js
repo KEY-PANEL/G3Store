@@ -3,8 +3,11 @@
   function applySiteMeta(pageKey){
     window.SITE_DATA = window.SITE_DATA || {};
     const site = window.SITE_DATA.site || {};
+    if (!site.ogImage) {
+      site.ogImage = 'asset/og-image.png';
+    }
     const page = window.SITE_DATA.pages?.[pageKey] || {};
-    const origin = window.location.origin !== 'null' ? window.location.origin : window.location.href.replace(/\/[^\/]*$/, '');
+    const origin = window.location.origin !== 'null' ? window.location.origin : window.location.href.replace(/\/[^^\/]*$/, '');
     const resolvePlaceholder = value => {
       if(!value) return '';
       return value.replace(/\{URL_WEBSITE\}/g, origin).replace(/\{URL_TESTIMONI\}/g, window.SITE_DATA.testimoniLink || '');
@@ -14,7 +17,7 @@
     const description = page.description || site.description || '';
     const ogTitle = page.ogTitle || title;
     const ogUrl = resolvePlaceholder(page.url || site.url) || window.location.href;
-    const ogImage = resolvePlaceholder(page.ogImage || site.ogImage) || '';
+    const ogImage = resolvePlaceholder(page.ogImage || site.ogImage) || site.ogImage;
     const twitterCard = site.twitterCard || 'summary_large_image';
 
     document.title = title;
