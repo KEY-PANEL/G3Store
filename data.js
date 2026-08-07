@@ -13,6 +13,48 @@ const SITE_DATA = {
 
   brand: "StarDev",
 
+  site: {
+    title: "StarDev // Script & App Store",
+    description: "Script otomasi, aplikasi Android, sampai tools digital custom — tinggal chat, langsung kirim.",
+    url: "{URL_WEBSITE}/",
+    ogImage: "{URL_WEBSITE}/assets/og-image.png",
+    twitterCard: "summary_large_image",
+    footerText: "status: open for orders",
+    nav: {
+      katalog: "Katalog",
+      panduan: "Panduan",
+      kontak: "Cara Beli"
+    }
+  },
+
+  pages: {
+    home: {
+      title: "StarDev // Script & App Store",
+      description: "Script otomasi, aplikasi Android, sampai tools digital custom — tinggal chat, langsung kirim.",
+      url: "{URL_WEBSITE}/"
+    },
+    katalog: {
+      title: "Katalog // StarDev",
+      description: "Lihat semua produk StarDev — script, app, dan tools lainnya lengkap dengan fitur & harga.",
+      url: "{URL_WEBSITE}/katalog.html"
+    },
+    kontak: {
+      title: "Cara Beli // StarDev",
+      description: "Hubungi admin StarDev lewat Telegram buat proses pembelian.",
+      url: "{URL_WEBSITE}/kontak.html"
+    },
+    panduan: {
+      title: "Panduan // StarDev",
+      description: "Video pemasangan dan langkah-langkah penggunaan untuk script maupun app dari StarDev.",
+      url: "{URL_WEBSITE}/panduan.html"
+    },
+    produk: {
+      title: "Produk // StarDev",
+      description: "Detail produk StarDev — paket harga, cara pakai, dan fitur lengkap.",
+      url: "{URL_WEBSITE}/produk.html"
+    }
+  },
+
   hero: {
     headline: "Script & app siap pakai, tinggal chat, langsung kirim.",
     deskripsi: "Kami bikin dan jual tools digital — script otomasi, aplikasi Android, sampai tools kustom."
@@ -250,3 +292,53 @@ const SITE_DATA = {
     }
   ]
 };
+
+function applySiteMeta(pageKey){
+  const site = SITE_DATA.site || {};
+  const page = SITE_DATA.pages?.[pageKey] || {};
+  const origin = window.location.origin !== 'null' ? window.location.origin : window.location.href.replace(/\/[^\/]*$/, '');
+  const resolvePlaceholder = value => {
+    if(!value) return '';
+    return value.replace(/\{URL_WEBSITE\}/g, origin).replace(/\{URL_TESTIMONI\}/g, SITE_DATA.testimoniLink || '');
+  };
+
+  const title = page.title || site.title || document.title;
+  const description = page.description || site.description || '';
+  const ogTitle = page.ogTitle || title;
+  const ogUrl = resolvePlaceholder(page.url || site.url) || window.location.href;
+  const ogImage = resolvePlaceholder(page.ogImage || site.ogImage) || '';
+  const twitterCard = site.twitterCard || 'summary_large_image';
+
+  document.title = title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', ogTitle);
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+  document.querySelector('meta[property="og:image"]')?.setAttribute('content', ogImage);
+  document.querySelector('meta[property="og:url"]')?.setAttribute('content', ogUrl);
+  document.querySelector('meta[name="twitter:card"]')?.setAttribute('content', twitterCard);
+
+  document.querySelectorAll('nav .brand').forEach(el => {
+    const anchor = el.querySelector('a');
+    const homeHref = anchor ? anchor.getAttribute('href') : 'index.html';
+    const brandText = anchor
+      ? `<span class="dot"></span> <a href="${homeHref}">${SITE_DATA.brand}</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span>`
+      : `<span class="dot"></span> ${SITE_DATA.brand}<span class="mono" style="color:var(--muted); font-weight:400;">.store</span>`;
+    el.innerHTML = brandText;
+  });
+
+  document.querySelectorAll('footer #brandFooter').forEach(el => {
+    el.textContent = SITE_DATA.brand;
+  });
+
+  document.querySelectorAll('footer .footer-text').forEach(el => {
+    if(site.footerText) el.textContent = site.footerText;
+  });
+
+  const setNavText = (href, text) => {
+    const anchor = document.querySelector(`nav .links a[href="${href}"]`);
+    if(anchor && text) anchor.textContent = text;
+  };
+  setNavText('katalog.html', site.nav?.katalog);
+  setNavText('panduan.html', site.nav?.panduan);
+  setNavText('kontak.html', site.nav?.kontak);
+}

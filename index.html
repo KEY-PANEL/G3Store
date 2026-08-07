@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StarDev // Script & App Store</title>
-<meta name="description" content="Script otomasi, aplikasi Android, sampai tools digital custom — tinggal chat, langsung kirim.">
+<title></title>
+<meta name="description" content="">
 <meta property="og:type" content="website">
-<meta property="og:title" content="StarDev // Script & App Store">
-<meta property="og:description" content="Script otomasi, aplikasi Android, sampai tools digital custom — tinggal chat, langsung kirim.">
-<meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
-<meta property="og:url" content="{URL_WEBSITE}/">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -89,16 +89,17 @@
 
 <footer>
   <span>© 2026 <span id="brandFooter">StarDev</span></span>
-  <span class="mono">status: open for orders</span>
+  <span class="mono footer-text"></span>
+
 </footer>
 
-<script src="data.js"></script>
+<script src="data/loader.js"></script>
+<script src="data/site-meta.js"></script>
 <script>
   document.getElementById('headline').innerHTML =
     SITE_DATA.hero.headline.replace(SITE_DATA.brand, `<span style="color:var(--gold)">${SITE_DATA.brand}</span>`);
   document.getElementById('deskripsi').textContent = SITE_DATA.hero.deskripsi;
-  document.getElementById('brandName').textContent = SITE_DATA.brand;
-  document.getElementById('brandFooter').textContent = SITE_DATA.brand;
+  applySiteMeta('home');
 
   document.getElementById('statProduk').textContent = SITE_DATA.produk.length;
   document.getElementById('statAdmin').textContent = SITE_DATA.kontak.telegram.length;

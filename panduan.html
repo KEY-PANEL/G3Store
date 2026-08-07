@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panduan // StarDev</title>
-<meta name="description" content="Video pemasangan dan langkah-langkah penggunaan untuk script maupun app dari StarDev.">
+<title></title>
+<meta name="description" content="">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Panduan // StarDev">
-<meta property="og:description" content="Video pemasangan dan langkah-langkah penggunaan untuk script maupun app dari StarDev.">
-<meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
-<meta property="og:url" content="{URL_WEBSITE}/panduan.html">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -19,7 +19,7 @@
 <body>
 
 <nav>
-  <div class="brand"><span class="dot"></span> <a href="index.html">StarDev</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="brand"><span class="dot"></span> <a href="index.html" id="brandName"></a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
   <div class="links">
     <a href="katalog.html">Katalog</a>
     <a href="panduan.html" class="active">Panduan</a>
@@ -46,12 +46,15 @@
 </section>
 
 <footer>
-  <span>© 2026 StarDev</span>
-  <a href="kontak.html" class="mono">cara beli →</a>
+  <span>© 2026 <span id="brandFooter">StarDev</span></span>
+  <span class="mono footer-text"></span>
+
 </footer>
 
-<script src="data.js"></script>
+<script src="data/loader.js"></script>
+<script src="data/site-meta.js"></script>
 <script>
+  applySiteMeta('panduan');
   const grid = document.getElementById('panduanGrid');
   grid.innerHTML = SITE_DATA.produk.map(p => `
     <div class="card">
@@ -62,7 +65,6 @@
     </div>
   `).join('');
 
-  // tombol bantuan -> semua admin Telegram
   const helpActions = document.getElementById('helpActions');
   helpActions.innerHTML = SITE_DATA.kontak.telegram.map((t,i) => `
     <a class="btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}" href="${t.link}" target="_blank" rel="noopener">

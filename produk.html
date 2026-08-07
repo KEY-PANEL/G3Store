@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Produk // StarDev</title>
-<meta name="description" id="pageDesc" content="Detail produk StarDev — paket harga, cara pakai, dan fitur lengkap.">
+<title id="pageTitle"></title>
+<meta name="description" id="pageDesc" content="">
 <meta property="og:type" content="product">
-<meta property="og:image" content="{URL_WEBSITE}/assets/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -16,7 +19,7 @@
 <body>
 
 <nav>
-  <div class="brand"><span class="dot"></span> <a href="index.html">StarDev</a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
+  <div class="brand"><span class="dot"></span> <a href="index.html" id="brandName"></a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
   <div class="links">
     <a href="katalog.html" class="active">Katalog</a>
     <a href="panduan.html">Panduan</a>
@@ -90,11 +93,13 @@
 </div>
 
 <footer>
-  <span>© 2026 StarDev</span>
+  <span>© 2026 <span id="brandFooter">StarDev</span></span>
+  <span class="mono footer-text"></span>
   <a href="katalog.html" class="mono">← katalog</a>
 </footer>
 
-<script src="data.js"></script>
+<script src="data/loader.js"></script>
+<script src="data/site-meta.js"></script>
 <script>
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
@@ -104,12 +109,15 @@
     document.getElementById('produkView').style.display = 'none';
     document.getElementById('notFound').style.display = 'block';
   } else {
-    document.getElementById('pageTitle').textContent = p.nama + " // StarDev";
+    applySiteMeta('produk');
+    const titleText = p.nama + " // " + SITE_DATA.brand;
+    document.title = titleText;
+    document.getElementById('pageTitle').textContent = titleText;
     document.getElementById('pageDesc').setAttribute('content', p.deskripsi);
-    document.querySelector('meta[property="og:title"]')?.remove();
-    const ogT = document.createElement('meta');
-    ogT.setAttribute('property','og:title'); ogT.setAttribute('content', p.nama + " // StarDev");
-    document.head.appendChild(ogT);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', titleText);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', p.deskripsi);
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', p.gambar ? new URL(p.gambar, window.location.href).href : SITE_DATA.site.ogImage);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', window.location.href);
 
     document.getElementById('produkKategori').textContent = p.kategori;
     document.getElementById('produkNama').textContent = p.nama;
