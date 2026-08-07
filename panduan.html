@@ -58,17 +58,42 @@
 <script>
   applySiteMeta('panduan');
   const grid = document.getElementById('panduanGrid');
-  grid.innerHTML = SITE_DATA.produk.map(p => `
-    <div class="card">
-      <span class="kind mono">${p.kategori}</span>
-      <h3>${p.nama}</h3>
-      <p>${p.deskripsi}</p>
-      <a href="produk.html?id=${encodeURIComponent(p.id)}#cara-pakai" class="buy">Lihat cara pakai</a>
-    </div>
-  `).join('');
+  // Render compact, collapsible list to keep panduan rapi
+  grid.innerHTML = SITE_DATA.produk.map(p => {
+    const short = (p.deskripsi || '').length > 140 ? (p.deskripsi || '').slice(0,140).trim() + '…' : (p.deskripsi || '');
+    return `
+      <details class="panduan-item card">
+        <summary>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; width:100%;">
+            <div>
+              <span class="kind mono">${p.kategori}</span>
+              <strong style="display:block; font-size:1.05rem; margin-top:6px;">${p.nama}</strong>
+              <div style="color:var(--muted); font-size:0.95rem; margin-top:6px;">${short}</div>
+            </div>
+            <div class="mono" style="color:var(--muted); font-size:0.9rem;">Lihat ▾</div>
+          </div>
+        </summary>
+        <div style="margin-top:12px;">
+          <p style="color:var(--text);">${p.deskripsi}</p>
+          <a href="produk.html?id=${encodeURIComponent(p.id)}#cara-pakai" class="btn btn-ghost" style="margin-top:8px; display:inline-block;">Buka panduan lengkap</a>
+        </div>
+      </details>
+    `;
+  }).join('');
 
   const helpActions = document.getElementById('helpActions');
-  helpActions.innerHTML = SITE_DATA.kontak.telegram.map((t,i) => `
+  // Dedupe contacts for help actions (keep owner flag if any)
+  const raw = (SITE_DATA.kontak && SITE_DATA.kontak.telegram) ? SITE_DATA.kontak.telegram : [];
+  const cmap = new Map();
+  raw.forEach(c => {
+    const key = (c.link || c.nama || '').toLowerCase();
+    if (!cmap.has(key)) cmap.set(key, { nama: c.nama, link: c.link, owner: !!c.owner });
+    else {
+      const ex = cmap.get(key); ex.owner = ex.owner || !!c.owner; cmap.set(key, ex);
+    }
+  });
+  const uniq = Array.from(cmap.values());
+  helpActions.innerHTML = uniq.map((t,i) => `
     <a class="btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}" href="${t.link}" target="_blank" rel="noopener">
       ${t.owner ? '👑 ' : ''}@${t.nama}
     </a>

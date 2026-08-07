@@ -36,7 +36,16 @@
     <p>Pilih produk, tekan View buat lihat paket harga, cara pakai, dan fitur lengkapnya.</p>
   </div>
 
-  <div class="catalog" id="catalogGrid"></div>
+  <div class="dir-window">
+    <div class="dir-bar">
+      <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+      <span class="path">~/katalog</span>
+    </div>
+    <div class="dir-head">
+      <span>nama</span><span>tipe</span><span>harga mulai</span><span></span>
+    </div>
+    <div id="catalogGrid"></div>
+  </div>
 </section>
 
 <footer>
@@ -50,25 +59,31 @@
   applySiteMeta('katalog');
   const grid = document.getElementById('catalogGrid');
 
-  SITE_DATA.produk.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'card';
+  const extMap = { 'Android App': '.apk', 'Tools/Web': '.web', 'Scripts/Roblox': '.lua' };
+
+  grid.innerHTML = SITE_DATA.produk.map(p => {
     const thumb = p.gambar
-      ? `<div class="card-thumb"><img src="${p.gambar}" alt="Preview ${p.nama}" loading="lazy"></div>`
-      : `<div class="card-thumb placeholder">Belum ada preview</div>`;
+      ? `<img class="dir-thumb" src="${p.gambar}" alt="Preview ${p.nama}" loading="lazy">`
+      : `<span class="dir-thumb placeholder">?</span>`;
     const hargaMulai = p.paket && p.paket.length
-      ? `mulai ${p.paket.reduce((a,b) => (parseInt(a.harga.replace(/\D/g,'')) < parseInt(b.harga.replace(/\D/g,'')) ? a : b)).harga}`
-      : '';
-    card.innerHTML = `
-      ${thumb}
-      <span class="kind mono">${p.kategori}</span>
-      <h3>${p.nama}</h3>
-      <p>${p.deskripsi}</p>
-      <div class="price">${hargaMulai}</div>
-      <a href="produk.html?id=${encodeURIComponent(p.id)}" class="buy">View</a>
+      ? p.paket.reduce((a,b) => (parseInt(a.harga.replace(/\D/g,'')) < parseInt(b.harga.replace(/\D/g,'')) ? a : b)).harga
+      : 'Hubungi admin';
+    const ext = extMap[p.kategori] || '.pkg';
+    return `
+      <a class="dir-row" href="produk.html?id=${encodeURIComponent(p.id)}">
+        <div class="dir-name">
+          ${thumb}
+          <div class="dir-name-text">
+            <strong>${p.nama}</strong>
+            <span>${p.deskripsi}</span>
+          </div>
+        </div>
+        <span class="dir-ext">${ext}</span>
+        <span class="dir-size">${hargaMulai}</span>
+        <span class="dir-open">buka →</span>
+      </a>
     `;
-    grid.appendChild(card);
-  });
+  }).join('');
 </script>
 
 </body>

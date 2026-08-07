@@ -79,7 +79,16 @@
       <h2>Feature</h2>
       <p>Daftar lengkap modul yang ada di produk ini.</p>
     </div>
-    <div class="fitur-list" id="fiturList"></div>
+    <div class="term-window">
+      <div class="term-bar">
+        <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+        <span class="path" id="fiturPath">~/produk</span>
+      </div>
+      <div class="term-body">
+        <div class="term-cmd"><span class="prompt">$</span> <span class="arg">cat fitur.json</span></div>
+        <div id="fiturList"></div>
+      </div>
+    </div>
   </section>
 
   <section class="section">
@@ -208,20 +217,16 @@
       caraSection.style.display = 'none';
     }
 
-    // Fitur
+    // Fitur — ditampilkan sebagai output terminal
+    document.getElementById('fiturPath').textContent = `~/produk/${p.id}`;
     const fiturList = document.getElementById('fiturList');
     fiturList.innerHTML = (p.fitur || []).map(f => `
-      <div class="fitur-card">
-        <div class="fitur-head">
-          <span class="fitur-icon">${f.icon || '✨'}</span>
-          <div>
-            <h3>${f.nama}</h3>
-            <p>${f.deskripsi || ''}</p>
-          </div>
+      <div class="term-block">
+        <div class="term-key"><span class="icon">${f.icon || '✨'}</span>${f.nama}<span class="term-brace"> {</span></div>
+        <div class="term-sub">
+          ${(f.sub || []).map(s => `<div class="term-sub-item"><b>${s.judul}:</b> ${s.detail}</div>`).join('')}
         </div>
-        <div class="fitur-sub">
-          ${(f.sub || []).map(s => `<div class="fitur-sub-item"><b>${s.judul}</b><span>${s.detail}</span></div>`).join('')}
-        </div>
+        <div class="term-brace">}</div>
       </div>
     `).join('');
 

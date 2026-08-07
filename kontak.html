@@ -36,8 +36,18 @@
     <p>Nggak ada checkout otomatis — semua transaksi diproses manual lewat Telegram. Sebutin nama produk & paket yang kamu mau pas chat, ya.</p>
   </div>
 
-  <div id="channelList" class="channels"></div>
+  <div id="channelList" class="channels" style="display:none;"></div>
 
+  <div id="productPicker" style="margin:18px 0 28px; display:none;">
+    <label for="productSelect" class="mono" style="display:block; margin-bottom:8px; color:var(--muted);">Pilih produk untuk diarahkan ke admin:</label>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <select id="productSelect" style="padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); min-width:260px;"></select>
+      <a id="productChatBtn" class="btn btn-primary" target="_blank" rel="noopener" href="#">Chat admin →</a>
+      <span id="pickerAdminPreview" class="mono" style="color:var(--muted); margin-left:8px;"></span>
+    </div>
+  </div>
+
+  <div id="productQuickList" style="margin:10px 0 28px;"></div>
   <div class="faq-block">
     <h3 class="faq-title">Pertanyaan yang sering ditanya</h3>
     <div class="faq" id="faqList"></div>
@@ -56,7 +66,24 @@
   applySiteMeta('kontak');
   const list = document.getElementById('channelList');
 
-  list.innerHTML = SITE_DATA.kontak.telegram.map(t => `
+  // Dedupe contacts by link (keep owner=true if any duplicate exists)
+  const rawContacts = (SITE_DATA.kontak && SITE_DATA.kontak.telegram) ? SITE_DATA.kontak.telegram : [];
+  const contactMap = new Map();
+  rawContacts.forEach(c => {
+    const key = (c.link || c.nama || '').toLowerCase();
+    if (!contactMap.has(key)) {
+      contactMap.set(key, { nama: c.nama, link: c.link, owner: !!c.owner });
+    } else {
+      const existing = contactMap.get(key);
+      existing.owner = existing.owner || !!c.owner;
+      if (!existing.link && c.link) existing.link = c.link;
+      if (!existing.nama && c.nama) existing.nama = c.nama;
+      contactMap.set(key, existing);
+    }
+  });
+
+  const uniqueContacts = Array.from(contactMap.values());
+  list.innerHTML = uniqueContacts.map(t => `
     <a class="channel tg" href="${t.link}" target="_blank" rel="noopener">
       <div class="left">
         <span class="chip"></span> @${t.nama}
@@ -73,6 +100,68 @@
       <p>${f.jawab}</p>
     </details>
   `).join('');
+
+  // Product picker: pilih produk lalu chat ke admin khusus produk
+  const productSelect = document.getElementById('productSelect');
+  const productChatBtn = document.getElementById('productChatBtn');
+  const pickerPreview = document.getElementById('pickerAdminPreview');
+
+  const products = SITE_DATA.produk || [];
+  productSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.nama} — ${p.kategori}</option>`).join('');
+
+  function resolveBuyTarget(prod){
+    if(!prod) return (SITE_DATA.kontak && SITE_DATA.kontak.telegram && SITE_DATA.kontak.telegram[0]) || null;
+    const contacts = prod.kontak && prod.kontak.length ? prod.kontak : (SITE_DATA.kontak && SITE_DATA.kontak.telegram ? SITE_DATA.kontak.telegram : []);
+    // Prefer support contact (owner === false) if present, otherwise prefer reseller/owner
+    const target = contacts.find(c => c.owner === false) || contacts.find(c => c.owner) || contacts[0] || null;
+    return target;
+  }
+
+  function updatePicker(){
+    const id = productSelect.value;
+    const prod = products.find(x => x.id === id);
+    const target = resolveBuyTarget(prod);
+    if(target){
+      pickerPreview.textContent = `→ ${target.nama}`;
+      const message = `Halo, saya mau beli ${prod ? prod.nama : ''}.`; 
+      productChatBtn.href = `${target.link}?text=${encodeURIComponent(message)}`;
+      productChatBtn.style.pointerEvents = '';
+      productChatBtn.classList.remove('btn-disabled');
+    } else {
+      pickerPreview.textContent = '';
+      productChatBtn.href = '#';
+      productChatBtn.style.pointerEvents = 'none';
+      productChatBtn.classList.add('btn-disabled');
+    }
+  }
+
+  if(products.length){
+    updatePicker();
+    productSelect.addEventListener('change', updatePicker);
+  } else {
+    document.getElementById('productPicker').style.display = 'none';
+  }
+
+  // Quick product links: big product name that opens chat to product admin
+  const quickList = document.getElementById('productQuickList');
+  quickList.innerHTML = products.map(p => {
+    const target = resolveBuyTarget(p);
+    const message = `Halo, saya mau beli ${p.nama}.`;
+    const href = target ? `${target.link}?text=${encodeURIComponent(message)}` : '#';
+    return `
+      <a class="channel tg" href="${href}" target="_blank" rel="noopener" style="display:block; margin-bottom:10px;">
+        <div class="left">
+          <span class="chip"></span>
+          <div style="display:flex; gap:12px; align-items:center;">
+            <strong style="font-size:1.05rem;">${p.nama}</strong>
+            <span class="mono" style="color:var(--muted);">${p.kategori}</span>
+            
+          </div>
+        </div>
+        <span class="go mono">chat →</span>
+      </a>
+    `;
+  }).join('');
 </script>
 
 </body>
