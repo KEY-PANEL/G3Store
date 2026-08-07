@@ -44,6 +44,13 @@
   <section class="section produk-hero">
     <a href="katalog.html" class="back-link mono">← Kembali ke katalog</a>
     <div id="produkThumb"></div>
+    <div id="previewModal" class="preview-modal" aria-hidden="true">
+      <div class="preview-backdrop" id="previewBackdrop"></div>
+      <div class="preview-dialog" role="dialog" aria-modal="true">
+        <button id="previewClose" class="preview-close" type="button" aria-label="Tutup preview">×</button>
+        <img id="previewImage" src="" alt="">
+      </div>
+    </div>
     <span class="kind mono" id="produkKategori"></span>
     <h1 id="produkNama"></h1>
     <p id="produkDeskripsi"></p>
@@ -141,6 +148,43 @@
     } else {
       document.getElementById('produkThumb').innerHTML = `<div class="card-thumb produk-thumb-single placeholder">Belum ada preview</div>`;
     }
+
+    const previewModal = document.getElementById('previewModal');
+    const previewImage = document.getElementById('previewImage');
+    const previewClose = document.getElementById('previewClose');
+    const previewBackdrop = document.getElementById('previewBackdrop');
+
+    function openPreview(src, alt) {
+      previewImage.src = src;
+      previewImage.alt = alt;
+      previewModal.classList.add('open');
+      previewModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePreview() {
+      previewModal.classList.remove('open');
+      previewModal.setAttribute('aria-hidden', 'true');
+      previewImage.src = '';
+      previewImage.alt = '';
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('produkThumb').addEventListener('click', e => {
+      const thumb = e.target.closest('.card-thumb');
+      const img = thumb && thumb.querySelector('img');
+      if (img) {
+        openPreview(img.src, img.alt);
+      }
+    });
+
+    previewClose.addEventListener('click', closePreview);
+    previewBackdrop.addEventListener('click', closePreview);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && previewModal.classList.contains('open')) {
+        closePreview();
+      }
+    });
 
     // Kontak khusus produk ini (fallback ke admin umum kalau nggak diisi)
     const contacts = (p.kontak && p.kontak.length) ? p.kontak : SITE_DATA.kontak.telegram;
