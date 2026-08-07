@@ -23,6 +23,14 @@
 <div class="bg-glow"><span class="orb-3"></span></div>
 <div class="bg-scan"></div>
 
+<div id="previewModal" class="preview-modal" aria-hidden="true">
+  <div class="preview-backdrop" id="previewBackdrop"></div>
+  <div class="preview-dialog" role="dialog" aria-modal="true">
+    <button id="previewClose" class="preview-close" type="button" aria-label="Tutup preview">×</button>
+    <img id="previewImage" src="" alt="">
+  </div>
+</div>
+
 <nav>
   <div class="brand"><span class="dot"></span> <a href="index.html" id="brandName"></a><span class="mono" style="color:var(--muted); font-weight:400;">.store</span></div>
   <div class="links">
@@ -44,13 +52,6 @@
   <section class="section produk-hero">
     <a href="katalog.html" class="back-link mono">← Kembali ke katalog</a>
     <div id="produkThumb"></div>
-    <div id="previewModal" class="preview-modal" aria-hidden="true">
-      <div class="preview-backdrop" id="previewBackdrop"></div>
-      <div class="preview-dialog" role="dialog" aria-modal="true">
-        <button id="previewClose" class="preview-close" type="button" aria-label="Tutup preview">×</button>
-        <img id="previewImage" src="" alt="">
-      </div>
-    </div>
     <span class="kind mono" id="produkKategori"></span>
     <h1 id="produkNama"></h1>
     <p id="produkDeskripsi"></p>
