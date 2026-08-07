@@ -20,6 +20,31 @@ body{
   font-family:'Inter', sans-serif;
   line-height:1.5;
 }
+body::before{
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("asset/index.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  filter: brightness(0.75);
+  pointer-events: none;
+}
+body.page-katalog::before{
+  background-image: url("asset/katalog.jpg");
+}
+body.page-panduan::before{
+  background-image: url("asset/panduan.jpg");
+}
+body.page-kontak::before{
+  background-image: url("asset/kontak.jpg");
+}
+body.page-produk::before{
+  background-image: url("asset/produk.jpg");
+}
 ::selection{ background:var(--gold); color:var(--ink); }
 h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em; }
 .mono{ font-family:'JetBrains Mono', monospace; }
