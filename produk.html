@@ -140,7 +140,6 @@
         <div class="produk-gallery">${images.map((src, i) => `
           <div class="card-thumb"><img src="${src}" alt="Preview ${i + 1} ${p.nama}"></div>
         `).join('')}</div>
-        <div class="mono" style="color:var(--muted); font-size:0.76rem; margin-top:8px;">← geser buat lihat preview lainnya →</div>
       `;
     } else if (images.length === 1) {
       document.getElementById('produkThumb').innerHTML = `
