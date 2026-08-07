@@ -25,7 +25,7 @@ body::before{
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url("asset/index.jpg");
+  background-image: url("asset/index.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -34,16 +34,16 @@ body::before{
   pointer-events: none;
 }
 body.page-katalog::before{
-  background-image: url("asset/katalog.jpg");
+  background-image: url("asset/katalog.png");
 }
 body.page-panduan::before{
-  background-image: url("asset/panduan.jpg");
+  background-image: url("asset/panduan.png");
 }
 body.page-kontak::before{
-  background-image: url("asset/kontak.jpg");
+  background-image: url("asset/kontak.png");
 }
 body.page-produk::before{
-  background-image: url("asset/produk.jpg");
+  background-image: url("asset/produk.png");
 }
 ::selection{ background:var(--gold); color:var(--ink); }
 h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em; }
@@ -261,8 +261,61 @@ nav, .menu-hero, .menu-tiles, footer, .section, .produk-hero{ position:relative;
   min-width:220px;
   aspect-ratio:16/10;
   border-radius:14px;
-  scroll-snap-align:start;
+  scroll-snap-align:start;  cursor:pointer;
 }
+.preview-modal{
+  position:fixed;
+  inset:0;
+  z-index:150;
+  display:none;
+  place-items:center;
+  background:rgba(0,0,0,0.72);
+  padding:24px;
+}
+.preview-modal.open{
+  display:grid;
+}
+.preview-dialog{
+  position:relative;
+  width:min(100%, 960px);
+  max-height:calc(100vh - 64px);
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(14,16,23,0.98);
+  box-shadow:0 40px 120px rgba(0,0,0,0.45);
+}
+.preview-dialog img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  background:var(--ink);
+}
+.preview-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(10,12,18,0.95);
+  color:var(--text);
+  font-size:1.5rem;
+  line-height:1;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform .18s ease, background .18s ease;
+}
+.preview-close:hover{
+  transform:scale(1.05);
+  background:rgba(255,255,255,0.12);
+}
+.preview-backdrop{
+  position:absolute;
+  inset:0;}
 
 /* ---------- TESTIMONI ---------- */
 .testi-section .btn{ display:inline-flex; }
