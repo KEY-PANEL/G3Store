@@ -10,7 +10,8 @@
       "images": [
         "asset/gold-glory-cheats.png",
         "asset/gold-glory-cheats2.png",
-        "asset/gold-glory-cheats3.png"],
+        "asset/gold-glory-cheats3.png"
+      ],
       "image": "asset/gold-glory-cheats.png",
       "features": {
         "Combat": {
@@ -64,9 +65,9 @@
       "category": "Tools/Web",
       "compatibility": "Web-based, integrasi Vercel & Telegram Bot",
       "shortDesc": "Panel manajemen license key & HWID dengan integrasi Telegram Bot",
-      "image": ["asset/keyless-panel.png",
-                "asset/keyless-panel2.png"],
-      "image": ["asset/keyless-panel.png",
+      "images": ["asset/keyless-panel.png",
+        "asset/keyless-panel2.png"],
+      "image": "asset/keyless-panel.png",
       "features": {
         "License": ["Login & Verify Key", "Activate/Bind HWID", "Check Key Expiration"],
         "Security": ["Dedicated Security Endpoint", "Receive Security Reports", "Security Webhook Notifications"],
@@ -88,7 +89,8 @@
           "Hubungi admin untuk arahan penggunaan dan setup.",
           "Semua detail produk akan diarahkan oleh admin setelah chat."
         ]
-      },
+      }
+    },
     {
       "id": "roblox-script",
       "name": "Roblox Script",
