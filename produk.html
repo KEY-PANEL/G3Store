@@ -193,6 +193,7 @@
 
     // Cara pakai
     const cp = p.cara_pakai || {};
+    const caraSection = document.getElementById('cara-pakai');
     document.getElementById('caraTitle').textContent = "Cara Pakai " + p.nama;
     document.getElementById('caraVideoWrap').innerHTML = cp.video_url
       ? `<a href="${cp.video_url}" target="_blank" rel="noopener" class="video-btn">▶ Tonton video pemasangan</a>`
@@ -202,6 +203,9 @@
       const note = document.getElementById('caraCatatan');
       note.style.display = 'block';
       note.textContent = cp.catatan;
+    }
+    if (!cp.video_url && (!Array.isArray(cp.langkah) || !cp.langkah.length) && !cp.catatan) {
+      caraSection.style.display = 'none';
     }
 
     // Fitur
