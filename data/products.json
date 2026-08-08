@@ -47,7 +47,8 @@
         { "label": "3 Hari", "priceIDR": 70000, "priceUSD": 4, "telegramText": "Mau order Gold & Glory Cheats paket 3 Hari" },
         { "label": "5 Hari", "priceIDR": 105000, "priceUSD": 6, "telegramText": "Mau order Gold & Glory Cheats paket 5 Hari" },
         { "label": "10 Hari", "priceIDR": 140000, "priceUSD": 8, "telegramText": "Mau order Gold & Glory Cheats paket 10 Hari" },
-        { "label": "1 Bulan", "priceIDR": 250000, "priceUSD": 15, "telegramText": "Mau order Gold & Glory Cheats paket 1 Bulan" }
+        { "label": "1 Bulan", "priceIDR": 250000, "priceUSD": 15, "telegramText": "Mau order Gold & Glory Cheats paket 1 Bulan" },
+        { "label": "Prtmanen", "priceIDR": 2000000, "priceUSD": 150, "telegramText": "Mau order Gold & Glory Cheats paket permanen" }
       ],
       "reseller": { "username": "@Yt_Lulu" },
       "supportContact": "@OnlyHeya",
